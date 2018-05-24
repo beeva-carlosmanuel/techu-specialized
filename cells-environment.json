@@ -1,0 +1,16 @@
+{
+	"modules": [{
+		"name": "Cells Environment",
+		"kind": "environment",
+		"link": "https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-environment/index.html",
+		"level": "easy",
+		"description": "Configure your development environment to start creating Cells components",
+		"updated": "2018-02-05",
+		"duration": "60 min",
+		"timing": true,
+		"tags": [
+			"cells", "environment", "nvm", "git", "bitbucket", "ssh", "npm", "node"
+		]
+	}
+]
+}

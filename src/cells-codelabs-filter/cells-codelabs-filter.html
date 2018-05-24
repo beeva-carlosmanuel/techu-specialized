@@ -1,0 +1,73 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="cells-codelabs-filter">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        justify-content: flex-end;
+        --placeholder-color: rgba(255, 255, 255, 0.4);
+        --placeholder-focus-color: #bbb;
+        --input-not-focused-width: 60%;
+      }
+      input {
+        display: block;
+        width: var(--input-not-focused-width);
+        height: 36px;
+        box-sizing: border-box;
+        font: inherit;
+        border: 0;
+        border-radius: 0;
+        padding: 6px 12px;
+        background-color: rgba(255, 255, 255, 0.09);
+        color: rgba(255, 255, 255, 0.9);
+        outline: none;
+        transition: background-color 0s ease-in, width 0.2s ease-out;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      input:focus {
+        width: 100%;
+        color: #4C4C4C;
+        background-color: #fff;
+        transition-duration: 0.2s, 0.2s;
+      }
+      ::-webkit-input-placeholder { color: var(--placeholder-color); }
+      ::-moz-placeholder { color: var(--placeholder-color); }
+      :-ms-input-placeholder { color: var(--placeholder-color); }
+      :focus::-webkit-input-placeholder { color: var(--placeholder-focus-color); }
+      :focus::-moz-placeholder { color: var(--placeholder-focus-color); }
+      :focus:-ms-input-placeholder { color: var(--placeholder-focus-color); }
+    </style>
+
+    <input type="search" value="{{_search::input}}" placeholder="[[placeholder]]">
+  </template>
+  <script>
+    Polymer({
+      is: 'cells-codelabs-filter',
+      properties: {
+        source: Array,
+        filters: Array,
+        result: {
+          type: Array,
+          readOnly: true,
+          notify: true,
+          computed: '_computeResult(source, filters, _search)'
+        },
+        placeholder: String,
+        _search: {
+          type: String,
+          value: ''
+        }
+      },
+
+      _computeResult: function(source, filters, search) {
+        return source.filter(item => {
+          return filters
+            .map(filter => item[filter])
+            .some(filter => filter.toString().toLowerCase().indexOf(search.trim().toLowerCase()) > -1);
+        });
+      }
+    });
+  </script>
+</dom-module>

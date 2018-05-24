@@ -1,0 +1,294 @@
+{
+  "colors": [
+    {
+      "groupName": "Core Navy",
+      "colors": [
+        {
+          "name": "--bbva-navy",
+          "value": "#072146"
+        },
+        {
+          "name": "--bbva-dark-navy",
+          "value": "#041836"
+        }
+      ]
+    },
+    {
+      "groupName": "Core Blue",
+      "colors": [
+        {
+          "name": "--bbva-dark-core-blue",
+          "value": "#043263"
+        },
+        {
+          "name": "--bbva-core-blue",
+          "value": "#004481"
+        },
+        {
+          "name": "--bbva-white-core-blue",
+          "value": "#1464A5"
+        }
+      ]
+    },
+    {
+      "groupName": "Medium Blue",
+      "colors": [
+        {
+          "name": "--bbva-dark-medium-blue",
+          "value": "#1464A5"
+        },
+        {
+          "name": "--bbva-medium-blue",
+          "value": "#237ABA"
+        },
+        {
+          "name": "--bbva-white-medium-blue",
+          "value": "#49A5E6"
+        }
+      ]
+    },
+    {
+      "groupName": "Light Blue",
+      "colors": [
+        {
+          "name": "--bbva-dark-light-blue",
+          "value": "#49A5E6"
+        },
+        {
+          "name": "--bbva-light-blue",
+          "value": "#5BBEFF"
+        },
+        {
+          "name": "--bbva-white-light-blue",
+          "value": "#D4EDFC"
+        }
+      ]
+    },
+    {
+      "groupName": "Secondary Palette",
+      "colors": [
+        {
+          "name": "--bbva-aqua",
+          "value": "#2DCCCD"
+        },
+        {
+          "name": "--bbva-dark-aqua",
+          "value": "#02A5A5"
+        },
+        {
+          "name": "--bbva-light-aqua",
+          "value": "#5AC4C4"
+        },
+        {
+          "name": "--bbva-white-aqua",
+          "value": "#EAF9FA"
+        }
+      ]
+    },
+    {
+      "groupName": "Secondary Grey",
+      "colors": [
+        {
+          "name": "--bbva-600",
+          "value": "#121212"
+        },
+        {
+          "name": "--bbva-500",
+          "value": "#666666"
+        },
+        {
+          "name": "--bbva-400",
+          "value": "#BDBDBD"
+        },
+        {
+          "name": "--bbva-300",
+          "value": "#D3D3D3"
+        },
+        {
+          "name": "--bbva-200",
+          "value": "#E9E9E9"
+        },
+        {
+          "name": "--bbva-100",
+          "value": "#F4F4F4"
+        },
+        {
+          "name": "--bbva-white",
+          "value": "#FFFFFF"
+        },
+        {
+          "name": "--bbva-white-50",
+          "value": "rgba(255,255,255,0.5)"
+        }
+      ]
+    },
+    {
+      "groupName": "Tertiary Reds",
+      "colors": [
+        {
+          "name": "--bbva-dark-red",
+          "value": "#B92A45"
+        },
+        {
+          "name": "--bbva-red",
+          "value": "#DA3851"
+        },
+        {
+          "name": "--bbva-light-red",
+          "value": "#E77D8E"
+        },
+        {
+          "name": "--bbva-white-red",
+          "value": "#F8D7DC"
+        }
+      ]
+    },
+    {
+      "groupName": "Tertiary Oranges",
+      "colors": [
+        {
+          "name": "--bbva-dark-orange",
+          "value": "#D8732C"
+        },
+        {
+          "name": "--bbva-orange",
+          "value": "#F7893B"
+        },
+        {
+          "name": "--bbva-light-orange",
+          "value": "#FAB27F"
+        },
+        {
+          "name": "--bbva-white-orange",
+          "value": "#FDE7D8"
+        }
+      ]
+    },
+    {
+      "groupName": "Tertiary Yellows",
+      "colors": [
+        {
+          "name": "--bbva-dark-yellow",
+          "value": "#D9AF41"
+        },
+        {
+          "name": "--bbva-yellow",
+          "value": "#F8CD51"
+        },
+        {
+          "name": "--bbva-light-yellow",
+          "value": "#FADE8E"
+        },
+        {
+          "name": "--bbva-white-yellow",
+          "value": "#FEF5DC"
+        }
+      ]
+    },
+    {
+      "groupName": "Tertiary Gold",
+      "colors": [
+        {
+          "name": "--bbva-dark-gold",
+          "value": "#B79E5E"
+        },
+        {
+          "name": "--bbva-gold",
+          "value": "#D8BE75"
+        },
+        {
+          "name": "--bbva-light-gold",
+          "value": "#E6D5A4"
+        },
+        {
+          "name": "--bbva-white-gold",
+          "value": "#F3EBD5"
+        }
+      ]
+    },
+    {
+      "groupName": "Tertiary Coral",
+      "colors": [
+        {
+          "name": "--bbva-dark-coral",
+          "value": "#D44B50"
+        },
+        {
+          "name": "--bbva-coral",
+          "value": "#F35E61"
+        },
+        {
+          "name": "--bbva-light-coral",
+          "value": "#F79697"
+        },
+        {
+          "name": "--bbva-white-coral",
+          "value": "#FDDFDF"
+        }
+      ]
+    },
+    {
+      "groupName": "Tertiary Green",
+      "colors": [
+        {
+          "name": "--bbva-dark-green",
+          "value": "#388D4F"
+        },
+        {
+          "name": "--bbva-green",
+          "value": "#48AE64"
+        },
+        {
+          "name": "--bbva-light-green",
+          "value": "#88CA9A"
+        },
+        {
+          "name": "--bbva-white-green",
+          "value": "#DAEFE0"
+        }
+      ]
+    },
+    {
+      "groupName": "Tertiary Pink",
+      "colors": [
+        {
+          "name": "--bbva-dark-pink",
+          "value": "#C569B9"
+        },
+        {
+          "name": "--bbva-pink",
+          "value": "#F78BE8"
+        },
+        {
+          "name": "--bbva-light-pink",
+          "value": "#FAB3F0"
+        },
+        {
+          "name": "--bbva-white-pink",
+          "value": "#FDDCF8"
+        }
+      ]
+    },
+    {
+      "groupName": "Tertiary Purple",
+      "colors": [
+        {
+          "name": "--bbva-dark-purple",
+          "value": "#7C6AC7"
+        },
+        {
+          "name": "--bbva-purple",
+          "value": "#8F7AE5"
+        },
+        {
+          "name": "--bbva-light-purple",
+          "value": "#B6A8EE"
+        },
+        {
+          "name": "--bbva-white-purple",
+          "value": "#DDD7F7"
+        }
+      ]
+    }
+  ]
+}

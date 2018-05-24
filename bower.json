@@ -1,0 +1,19 @@
+{
+  "name": "codelabs-landing-page",
+  "main": "index.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.9.0",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.0.0",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.1",
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.0.0",
+    "cells-codelab-components": "ssh://globaldevtools.bbva.com:7999/bbvacellsapp/cells-codelab-components.git",
+    "imported-template": "Juicy/imported-template#^3.1.1",
+    "marked-element": "PolymerElements/marked-element#^2.3.3",
+    "custom-markdown-tags": "ssh://globaldevtools.bbva.com:7999/cellslabs/custom-markdown-tags.git#^0.1.0",
+    "cells-coronita-base-theme": "ssh://globaldevtools.bbva.com:7999/ct/cells-coronita-base-theme.git",
+    "cells-radio-tabs": "ssh://globaldevtools.bbva.com:7999/bgcm/cells-radio-tabs.git"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^0.7.24"
+  }
+}

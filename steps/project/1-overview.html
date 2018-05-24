@@ -1,0 +1,169 @@
+<style>
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 10px;
+    background-color: #eeeeee;
+    padding: 10px;
+  }
+  .grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+  }
+
+  .h2-bullet {
+    display:inline;
+  }
+
+  .cells-bullet {
+    width: 2.5% !important;
+    vertical-align: unset !important;
+    margin-right: 4px;
+  }
+
+  .border-1 {
+    border: 1px solid #cccccc;
+  }
+</style>
+<template is="dom-bind">
+  <div slot="markdown-html">
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="introducing-cells">Introducing Cells</h2></span>
+    <p>Cells is an architecture built over the idea that instead of building applications
+      <strong>is better to build a set of reusable components</strong> (business modules)
+      that are assembled and communicated to create applications.
+    </p>
+    <p>Cells was designed to enhance <strong>reusability of components</strong> and <strong>dynamism of applications</strong>.</p>
+    <p style="margin: 0 auto; width: 80%">
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/XFvyj0tEbP8?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </p>
+
+    <p>
+      Here you are a short video about how Cells works to have in mind the architecture's concept.
+      <br/>
+      <br/>
+      <p style="margin: 0 auto; width: 80%">
+        <iframe width="100%" height="338" style="border: 0;" src="https://www.youtube.com/embed/CtoZEu0zByc?controls=1&rel=0" allowfullscreen></iframe>
+      </p>
+    </p>
+    <p>A Cells application is a set of pages where each page is a <strong>JSON</strong> file where we can define a <strong>layout</strong> and a <strong>list of components</strong>.</p>
+    <p>
+      In that list, for each component there is a definition of its <strong>properties</strong>, its <strong>communications</strong> with other components
+      <strong>and the layout zone</strong> where the component will be injected.
+    </p>
+    <p>You can configure complex applications according to different parameters such as device, user profile, environmental properties (such as backend workload) among others.</p>
+    <br/>
+    <br/>
+    <p>
+      <img
+        style="display: block;margin: 0 auto;width: 80%;"
+        src="../../images/tecnical-design-example.png" alt="Tecnical Design Example">
+    </p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="cells-ecosystem">Cells ecosystem</h2></span>
+    <p>There are several items that you need to know in the cells ecosystem.</p>
+    <ol>
+      <li>
+        <p><strong>Bridge</strong>: Cells Polymer Bridge is <strong>"the cells engine"</strong> that read every page's configuration in real time and create each html page.</p>
+      </li>
+      <li>
+        <p>
+          <strong>Catalog</strong>: Cells have the <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/">Cells Components Catalog</a> with
+          a lot of Production Ready components that you can use in your application. There are different groups of components:
+          <ul>
+            <li>
+              <a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/documentation/advanced-guides/components/user-interface-components">
+                UI & UX Components
+              </a>
+            </li>
+            <li>
+              <a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/documentation/advanced-guides/components/templates">
+                Template Components
+              </a>
+            </li>
+            <li>
+              <a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/documentation/advanced-guides/components/data-components">
+                Data Components
+              </a>
+            </li>
+            <li>
+              <a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/documentation/advanced-guides/components/cross-components">
+                Cross Components
+              </a>
+            </li>
+            <li>
+              <a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/documentation/native/hybrid-app/android-app/component-ui">
+                Native Components
+              </a>
+            </li>
+            <li>
+              <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200#/family/cells-catalog-widgets-family">
+                Widgets
+              </a>
+            </li>
+            <li>
+              <a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/documentation/advanced-guides/components/theme">
+                Theme Components
+              </a>
+            </li>
+          </ul>
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>CLI</strong>: The Cells CLI (Command Line Interface) is a development environment to help you out build applications and components faster.
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Composer</strong>: (Coming soon)
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Documentation</strong>: You can find a wide documentation in BBVA Ether Platform, in
+          <a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/documentation/quick-start/introducing-cells">Developer's area</a>
+        </p>
+      </li>
+      <li>
+        <p>
+          <strong>Continuous Integration</strong>: Ether includes Continuous Integration in the development lifecycle that includes a set of tools <strong>to make simple the deploy's process</strong>.
+          You can manage your proyects from <a target="_blank" href="https://globaldevtools.bbva.com/graas/beapp/">Dev Tools Application</a> where we can create products, applications and components.
+        </p>
+      </li>
+    </ol>
+  </div>
+  <p><h3>References:</h3></p>
+  <p>
+  <ul>
+    <li>
+      Documentation
+      <ul>
+        <li><a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/index.html">BBVA Ether Platform - What is CELLS?</a></li>
+        <li><a target="_blank" href="http://bbva-moodle.appspot.com/course/index.php?categoryid=5">BBVA Ether Moodle - Cells Training</a></li>
+        <li><a target="_blank" href="https://globaldevtools.bbva.com/platform_docs/">ETHER</a></li>
+      </ul>
+    </li>
+    <li>
+      <a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/index.html">Cells Codelabs</a>
+      <ul>
+        <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-environment/index.html#0">Codelab "Prepare your Cells environment"</a></li>
+        <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-app-first-steps/index.html">Cells First App</a></li>
+        <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-continuous-integration/index.html">Continuous Integration</a></li>
+      </ul>
+    </li>
+    <li>
+      Communities
+      <ul>
+        <li><a target="_blank" href="https://cellsjs.slack.com/messages/C09T2GJSX/details/">cellsjs.slack</a></li>
+        <li><a target="_blank" href="https://plus.google.com/communities/109489428539696676001">Cells Google+</a></li>
+        <li><a target="_blank" href="https://bbva-askbot.appspot.com/">Ask Bot</a></li>
+        <li><a target="_blank" href="https://bbva-askbot.appspot.com/questions/scope:all/sort:activity-desc/tags:Cells/page:1/">Ask Bot Cells</a></li>
+      </ul>
+    </li>
+  </ul>
+  </p>
+</template>
+

@@ -1,0 +1,9 @@
+{
+  "name": "custom-markdown-tags",
+  "description": "Allows to use custom tags in markdown files used in Cells CodeLabs",
+  "main": "custom-markdown-tags.html",
+  "keywords": [
+    "markdown"
+  ],
+  "version": "0.1.3"
+}

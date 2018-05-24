@@ -1,0 +1,113 @@
+<link rel="import" href="../../polymer/polymer.html">
+<dom-module id="demo-fonts">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .samples {
+        max-width: 600px;
+        margin: 40px auto 0;
+      }
+
+      .sample {
+        margin-bottom: 30px;
+      }
+
+      .aside {
+        white-space: pre-line;
+        font-size: 12px;
+        font-family: Roboto Mono, monaco, monospace;
+        padding: 5px;
+        background: rgba(255, 255, 255, 0.6);
+      }
+
+      .aside[tabindex] {
+        background: #fff;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .aside:focus {
+        outline: none;
+        border-color: #02A5A5;
+      }
+
+      .sample > div:not(.aside) {
+        font-size: 24px;
+        margin-bottom: 6px;
+      }
+
+      .light {
+        font-weight: 300;
+      }
+
+      .medium {
+        font-weight: 500;
+        @apply --cells-font-smoothing;
+      }
+
+      .bold {
+        font-weight: 700;
+        @apply --cells-font-smoothing;
+      }
+
+      .italic {
+        font-style: italic;
+      }
+    </style>
+
+    <div class="samples">
+      <div class="sample">
+        <div class="light">Benton Sans Light</div>
+        <div class="aside" tabindex="0" on-click="_select" on-keydown="_select">font-weight: 300;
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="book">Benton Sans Book</div>
+        <div class="aside">default (no style)
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="book italic">Benton Sans Book Italic</div>
+        <div class="aside" tabindex="0" on-click="_select" on-keydown="_select">font-style: italic;
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="medium">Benton Sans Medium</div>
+        <div class="aside" tabindex="0" on-click="_select" on-keydown="_select">font-weight: 500;
+        @apply --cells-font-smoothing;
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="medium italic">Benton Sans Medium Italic</div>
+        <div class="aside" tabindex="0" on-click="_select" on-keydown="_select">font-weight: 500;
+        font-style: italic;
+        @apply --cells-font-smoothing;
+        </div>
+      </div>
+
+      <div class="sample">
+        <div class="bold">Benton Sans Bold</div>
+        <div class="aside" tabindex="0" on-click="_select" on-keydown="_select">font-weight: 700;
+        @apply --cells-font-smoothing;
+        </div>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'demo-fonts',
+      _select: function(e) {
+        if (e.type === 'keydown' && [32, 13].indexOf(e.keyCode) === -1) {
+          return;
+        }
+        window.getSelection().selectAllChildren(e.currentTarget);
+      }
+    });
+  </script>
+</dom-module>

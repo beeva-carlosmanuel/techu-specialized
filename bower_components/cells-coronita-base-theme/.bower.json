@@ -1,0 +1,57 @@
+{
+  "name": "cells-coronita-base-theme",
+  "version": "1.0.4",
+  "description": "Contains Coronita color vars and font-family definitions",
+  "keywords": [
+    "web-component",
+    "theme",
+    "coronita",
+    "styles",
+    "hybrid"
+  ],
+  "ignore": [
+    "tasks"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.9 - 2",
+    "iron-ajax": "1 - 2",
+    "cells-radio-tabs": "^11.0.0",
+    "iron-pages": "1 - 2"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#1 - 2",
+    "webcomponentsjs": "^1.0.0"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^1.0.0"
+  },
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "polymer": "Polymer/polymer#^1.9.0",
+        "iron-ajax": "^1.0.0",
+        "cells-radio-tabs": "^11.0.0",
+        "iron-pages": "^1.0.0"
+      },
+      "devDependencies": {
+        "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+        "webcomponentsjs": "^0.7"
+      },
+      "resolutions": {
+        "webcomponentsjs": "^0.7"
+      }
+    }
+  },
+  "main": [
+    "cells-coronita-base-theme.html"
+  ],
+  "_release": "1.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.4",
+    "commit": "3de4162470d1c9f95cf15552ece5f4ca7dda904a"
+  },
+  "_source": "ssh://globaldevtools.bbva.com:7999/ct/cells-coronita-base-theme.git",
+  "_target": "^1.0.0",
+  "_originalSource": "cells-coronita-base-theme"
+}

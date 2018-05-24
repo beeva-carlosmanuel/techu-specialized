@@ -1,0 +1,237 @@
+<style>
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-2 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left !important;
+    padding: 5px 5px !important;
+    font-size: 12px !important;
+  }
+
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-4 {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-4 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    padding: 5px 5px;
+    font-size: 14px;
+  }
+
+  .h2-bullet {
+    display:inline;
+  }
+
+  .cells-bullet {
+    width: 2.5% !important;
+    vertical-align: unset !important;
+    margin-right: 4px;
+  }
+
+  .horizontal-center {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .strong {
+    font-weight: bold;
+  }
+
+  .border-1 {
+    border: 1px solid #cccccc;
+  }
+</style>
+<template is="dom-bind">
+  <div slot="markdown-html">
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="overview">Cells CLI Application Wizard</h2></span>
+    <p>We can use <strong>Cells CLI tool</strong> to create our base application structure of files and directories in our local computer where we will work.</p>
+    <p>On a terminal console, go to your workspace directory, and launch the <strong>cells app:create</strong> command:</p>
+    <p>
+      <video class="horizontal-center" width="100%" controls>
+        <source src="images/cells-app-create-last.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+    </p>
+    <p>We just made the following steps:</p>
+    <div class="grid-container-2">
+      <div class="item1 strong">$> cells app:create</div>
+      <div class="item2">Using the cells app:create wizard we create the base application structure of files and directories.</div>
+      <div class="item1 strong">$> cd projectFolder</div>
+      <div class="item2">Enter to our project folder, created with previous command.</div>
+      <div class="item1 strong">
+        $> git init <br/>
+        $> git config --local user.email our-name@bbva.com <br/>
+        $> git config --local user.name "Our Name"
+      </div>
+      <div class="item2">Initiate and configure git</div>
+      <div class="item1 strong">Edit Jenkinsfile</div>
+      <div class="item2">Configure <strong>piscoOpts</strong> by setting your environment (for example <strong>composer-mock-local</strong>) and file and platform type (<strong>webapp</strong>). You can set one or more of "webapp", "ios" and/or "android"</div>
+    </div>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="overview">Launch our Application in local</h2></span>
+    <br/>
+    <p>The command <strong>"cells app:serve"</strong> build and launch our application, and then open a browser tab to show running our application in local. This command may take more time when it is run for the first time, because need to install some dependencies.</p>
+    <div class="grid-container-2">
+      <div class="item1 strong">$> cells app:serve</div>
+      <!-- <div class="item1 strong">$> cells app:serve -c composer-mock-local.json</div>-->
+      <div class="item2">Build & Launch App in local. It will open a new tab in your browser.</div>
+    </div>
+    <p>
+      This command will ask us if we want to <strong>vulcanize</strong> our application and what <strong>deployment configuration</strong> we want to use.
+      For development environments isn't necessary to vulcanize, its usually recommended for production environments.
+      <br/>
+      We will test our application in our local environment, so we can use "<strong>For developing</strong>" and <strong>composer-mock-local</strong> option.
+    </p>
+    <p>Bravo! We have our first base application code working on local (empty application, but working!).</p>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="first-commit">The first commit</h2></span>
+    <p>It's time to continue where we left off in the previous section: <strong>the first commit</strong></p>
+    <p>
+      <video class="horizontal-center" width="100%" controls>
+        <source src="images/first-commit-last.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+    </p>
+    <p>
+      Now you have the first commit done. This push isn't made by Continuous Integration, but all next uploads will be done
+      by using Continuous Integration with Jenkins.
+    </p>
+    <p>We have now branches in our repository and all the code already uploaded in the first commit.</p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="scan-folders">Jenkins - Scan Organization Folder</h2></span>
+    <p>
+      Jenkis must now scan the new Folders Organization (the new main branches created: master & develop).
+      This process is only launched once throughout the life cycle of our project, when the main branches of the project are created.
+      This is an automatic process, but it is launched automatically once a day.
+    </p>
+    <p>If you don't want to wait, you can launch this process manually, by clicking on the link <strong>Scan Organization Folder Now</strong> of our project in Jenkins:</p>
+    <p>
+      <img class="border-1" src="images/scan-branches.png"/>
+    </p>
+    <p>Once scanned, you can see the folders and their branches in Jenkins:</p>
+    <p>
+      <img class="border-1" src="images/jenkins-branches-scanned.png"/>
+    </p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="git-tools">Git Flow & Console Tools</h2></span>
+    <p>
+      To work comfortably and take control of our git repository, we can use a couple of tools that take advantage of our console and git flow tool.
+    </p>
+    <p>
+      We can add to our console settings, the <strong>.bashrc</strong> file, the next script:
+    </p>
+    <pre>
+# TUNEADO DE LA CONSOLA PARA GIT:
+# Para aplicar los cambios, ejecutar $> . ~/.bashrc
+#########################################################################################
+# function hasBranch {
+#    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/{\1}/"
+# }
+
+function isSvn {
+    test -d .svn && echo "(svn)"
+}
+
+# PS1="\[\e[0;33m\]\u@\h \[\e[0;37m\](\D{%d-%m-%Y} \A)\[\e[0;32m\]: \w \[\e[1;33m\]\$(hasBranch)\$(isSvn) \n\[\e[0;33m\]\$ \[\e[0m\]"
+
+alias git_log="git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+alias git_log_simple="git log --oneline --graph --decorate"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+alias gitl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white) %an%C(reset)' --all"
+
+function parse_git_branch () {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+RED="\[\033[0;31m\]"
+YELLOW="\[\033[0;33m\]"
+GREEN="\[\033[1;92m\]"
+NO_COLOR="\[\033[0m\]"
+BLUE="\[\033[1;94m\]"
+
+PS1="$GREEN\u@\h$BLUE:\w$YELLOW\$(parse_git_branch)$NO_COLOR\$ "
+#########################################################################################</pre>
+    <p>
+      Once you added these commands, to apply the changes, you must execute the next command: <br/>
+      $> . ~/.bashrc
+    </p>
+    <p>These commands will customize our console and show us always the current branch in the command line prompt among other things, for example you can use <strong>git_log</strong>, <strong>git_log_simple</strong> and <strong>gitl</strong> commands to show git logs in your console.</p>
+    <p>We are going to use too git-flow tool to follow the git flow standars.</p>
+    <p>See how to install that tools in the next video:</p>
+    <p>
+      <video class="horizontal-center" width="100%" controls>
+          <source src="images/git-flow-init.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+    </p>
+    <p>This step is optional, but can help you in your development process.</p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="continuous Integration">Continuous Integration</h2></span>
+    <p>
+      We will now make <strong>a couple of little changes in the code to start to use the continuous integration</strong>.
+      For now, simply we will make a feature by changing the .gitignore file to exclude all files we wont to upload, and the title tag of our application.
+    </p>
+    <ul>
+      <li>Starting from develop branch, first we create a git flow feature:<br/>
+        $> git flow feature start first-ci
+      </li>
+      <li>We going to exclude of uploads the <strong>.idea/</strong> directory (temporal folder for webstorm) and the <strong>.tmp/</strong> folder.</li>
+      <li>We going to change the title of the main template in our project: <strong>app/tpls/index.tpl</strong></li>
+      <li>Build & Serve the application to check changes in local.</li>
+      <li>commit our changes and finish our feature.</li>
+      <li>When we push our develop branch, a pull request will be created.</li>
+      <li>Once accepted our pull request, a Jenkins Job with the process of deploy will be <strong>automatically created</strong>.</li>
+      <li>When the job is finished, Jenkins will send to us a email with the result.</li>
+    </ul>
+    <p>See the process in the next video:</p>
+    <p>
+      <video class="horizontal-center" width="100%" controls>
+        <source src="images/continuous-integration-full.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+    </p>
+    <p><h3>References:</h3></p>
+    <p>
+    <ul>
+      <li>
+        Documentation
+        <ul>
+          <li><a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/index.html">BBVA Ether Platform - What is CELLS?</a></li>
+          <li><a target="_blank" href="http://bbva-moodle.appspot.com/course/index.php?categoryid=5">BBVA Ether Moodle - Cells Training</a></li>
+          <li><a target="_blank" href="https://globaldevtools.bbva.com/platform_docs/">ETHER</a></li>
+        </ul>
+      </li>
+      <li>
+        <a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/index.html">Cells Codelabs</a>
+        <ul>
+          <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-environment/index.html#0">Codelab "Prepare your Cells environment"</a></li>
+          <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-app-first-steps/index.html">Cells First App</a></li>
+          <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-continuous-integration/index.html">Continuous Integration</a></li>
+        </ul>
+      </li>
+      <li>
+        Communities
+        <ul>
+          <li><a target="_blank" href="https://cellsjs.slack.com/messages/C09T2GJSX/details/">cellsjs.slack</a></li>
+          <li><a target="_blank" href="https://plus.google.com/communities/109489428539696676001">Cells Google+</a></li>
+          <li><a target="_blank" href="https://bbva-askbot.appspot.com/">Ask Bot</a></li>
+          <li><a target="_blank" href="https://bbva-askbot.appspot.com/questions/scope:all/sort:activity-desc/tags:Cells/page:1/">Ask Bot Cells</a></li>
+        </ul>
+      </li>
+    </ul>
+    </p>
+  </div>
+</template>
+

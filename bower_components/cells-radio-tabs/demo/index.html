@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>Demo cells-radio-tabs</title>
+    <script>
+      window.Polymer = {
+        dom: 'shadow',
+        lazyRegister: true,
+        useNativeCSSProperties: true
+      };
+    </script>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../cells-demo-helper/cells-demo-helper.html">
+    <link rel="import" href="../../paper-input/paper-input.html">
+    <link rel="import" href="../../iron-pages/iron-pages.html">
+    <link rel="import" href="../../coronita-icons/coronita-icons.html">
+    <link rel="import" href="../cells-radio-tabs.html">
+    <link rel="import" href="css/demo-styles.html">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400">
+  </head>
+  <body unresolved ontouchstart>
+    <cells-demo-helper available-themes='["cells-coronita-theme"]'>
+      <cells-demo-case heading="Default style">
+        <template>
+          <dom-bind>
+            <template is="dom-bind">
+              <paper-input label="Selected" type="number" value="{{selected::change}}" min="0" max="2"></paper-input>
+              <cells-radio-tabs options='["One", "Two", "Three"]' selected="{{selected}}"></cells-radio-tabs>
+            </template>
+          </dom-bind>
+
+          <dom-bind>
+            <template is="dom-bind" id="demo-2">
+              <paper-input label="Selected" type="number" value="{{selected::change}}" min="0" max="1"></paper-input>
+              <cells-radio-tabs options='["One", "Two"]' selected="{{selected}}"></cells-radio-tabs>
+            </template>
+          </dom-bind>
+          <script>
+            document.addEventListener('WebComponentsReady', function() {
+              var demo = document.querySelector(Polymer.Element ? 'dom-bind' : '[is="dom-bind"]');
+              demo.selected = 2;
+            });
+          </script>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="With icons">
+        <template>
+          <custom-style>
+            <style is="custom-style">
+              .icon-reversed {
+                --cells-radio-tabs-icon-margin: 0 0 0 10px;
+                --cells-radio-tabs-content: {
+                  flex-direction: row-reverse;
+                };
+              }
+            </style>
+          </custom-style>
+
+          <cells-radio-tabs
+            icon-size="20"
+            options='[{
+              "icon": "coronita:alarm",
+              "label": "Alerts"
+            }, {
+              "icon": "coronita:historic",
+              "label": "Movements"
+            }]'>
+          </cells-radio-tabs>
+          <cells-radio-tabs class="icon-reversed"
+            icon-size="20"
+            options='[{
+              "icon": "coronita:alarm",
+              "label": "Alerts"
+            }, {
+              "icon": "coronita:historic",
+              "label": "Movements"
+            }]'>
+          </cells-radio-tabs>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Sample use as tab panel">
+        <template>
+          <custom-style>
+            <style is="custom-style">
+              .demo-0 {
+                background-color: transparent;
+                height: 44px;
+                color: #757575;
+                --cells-radio-tabs-color-selected: #D55A4A;
+
+                --cells-radio-tabs-option: {
+                  border-bottom: 0;
+                  background-color: #eaeaea;
+                  margin: 0 1px;
+                  border-top: 2px solid #D2D2D2;
+                };
+
+                --cells-radio-tabs-selected: {
+                  z-index: 1;
+                };
+
+                --cells-ratio-tabs-indicator: {
+                  height: 100%;
+                  background-color: #fff;
+                  border-top: 2px solid #D55A4A;
+                };
+              }
+            </style>
+          </custom-style>
+
+          <dom-bind>
+            <template is="dom-bind">
+              <div class="demo-0-wrapper">
+                <cells-radio-tabs class="demo-0" options='["Option 1", "Option 2", "Last option"]' selected="{{selected}}"></cells-radio-tabs>
+                <iron-pages selected="[[selected]]" class="tab-content">
+                  <div>
+                    <p>Sample tab content 1.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, id?</p>
+                  </div>
+
+                  <div>
+                    <p>Sample tab content 2.</p>
+                    <p>Lorem ipsum dolor sit amet, molestias consectetur rem, dolorem assumenda dignissimos.</p>
+                  </div>
+
+                  <div>
+                    <p>Sample tab content 3.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                  </div>
+                </iron-pages>
+              </div>
+            </template>
+          </dom-bind>
+        </template>
+      </cells-demo-case>
+
+      <cells-demo-case heading="Custom styles">
+        <template>
+          <custom-style>
+            <style is="custom-style">
+              .demo-1 {
+                color: #9DA4D3;
+                height: 32px;
+                background-color: #DDDFE9;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 210px;
+                font-family: Lato, sans-serif;
+                font-weight: 300;
+                font-size: 12px;
+                --cells-radio-tabs-border-radius: 100px;
+                --cells-radio-tabs-color-selected: #fff;
+
+                --cells-radio-tabs-option: {
+                  text-transform: uppercase;
+                  letter-spacing: 3px;
+                  border-bottom: 0;
+                  z-index: 1;
+                  padding-left: 12px;
+                  padding-right: 12px;
+                };
+
+                --cells-radio-tabs-selected: {
+                  font-weight: 400;
+                };
+
+                --cells-ratio-tabs-indicator: {
+                  height: 100%;
+                  background-color: #3E4EB5;
+                  box-shadow: 0 2px 8px 0px rgba(62, 78, 181, 0.9);
+                };
+              }
+
+              .demo-2 {
+                color: #666;
+                background: #dadada;
+                box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.12);
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 86px;
+                padding: 3px;
+                text-transform: uppercase;
+                transform: scale(0.8); /* lazy mode */
+                --cells-radio-tabs-color-selected: #fff;
+                --cells-radio-tabs-item-height: 38px;
+                --cells-radio-tabs-indicator-bg-color: #48ae64;
+                --cells-radio-tabs-border-radius: 64px;
+                --cells-radio-tabs-option: {
+                  letter-spacing: 0;
+                };
+
+                --cells-radio-tabs-option: {
+                  width: 40px;
+                  z-index: 1;
+                  border-bottom: 0;
+                };
+
+                --cells-ratio-tabs-indicator: {
+                  width: 40px;
+                  bottom: 3px;
+                  left: 3px;
+                  height: calc(100% - 6px);
+                  background-image: linear-gradient(-180deg, #43AF61 0%, #298D45 100%);
+                  box-shadow: 0 2px 1px 0 rgba(0,0,0,0.18), inset 0 -1px 0 0 #1D7937;
+                };
+
+                --cells-radio-tabs-icon: {
+                  margin-right: 5px;
+                  margin-left: 5px;
+                  filter: drop-shadow(0 -1px 0 rgba(0,0,0,0.2));
+                };
+              }
+            </style>
+          </custom-style>
+
+          <cells-radio-tabs class="demo-1" options='["General", "Support"]'></cells-radio-tabs>
+          <cells-radio-tabs class="demo-2" options='[{
+            "icon": "coronita:on",
+            "label": " "
+          }, {
+            "icon": "coronita:close",
+            "label": " "
+          }]'></cells-radio-tabs>
+        </template>
+      </cells-demo-case>
+    </cells-demo-helper>
+  </body>
+</html>
