@@ -1,0 +1,66 @@
+<style>
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-2 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 5px 0;
+    font-size: 30px;
+  }
+
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-4 {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-4 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    padding: 5px 5px;
+    font-size: 14px;
+  }
+
+  .h2-bullet {
+    display:inline;
+  }
+
+  .cells-bullet {
+    width: 2.5% !important;
+    vertical-align: unset !important;
+    margin-right: 4px;
+  }
+
+  .horizontal-center {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .strong {
+    font-weight: bold;
+  }
+</style>
+<template is="dom-bind">
+  <div slot="markdown-html">
+    <h2 id="overview">Overview</h2>
+    <p>Cells is an architecture built over the idea that instead of building applications
+      <strong>is better to build a set of reusable components</strong> (business modules)
+      that are assembled and communicated to create applications.
+    </p>
+    <div class="grid-container-4">
+      <div class="item1">1</div>
+      <div class="item2">2</div>
+      <div class="item1">3</div>
+      <div class="item2">4</div>
+    </div>
+  </div>
+</template>
+

@@ -1,0 +1,27 @@
+{
+	"modules": [{
+		"name": "Final Project",
+		"kind": "traininglab",
+		"link": "project.html",
+		"level": "medium",
+		"description": "You will get the instructions to build a Cells project",
+		"updated": "2018-02-06",
+		"timing": false,
+		"tags": [
+			"project", "cells", "develop"
+		]
+	}, {
+		"name": "Final Test",
+		"kind": "traininglab",
+		"link": "#",
+		"level": "medium",
+		"description": "Test your knowledge about Cells Specialized program",
+		"updated": "2018-02-06",
+		"duration": "30 min",
+		"timing": true,
+		"tags": [
+			"test", "evaluation", "skill"
+		]
+	}
+]
+}

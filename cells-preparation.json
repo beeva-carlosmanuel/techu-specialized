@@ -1,0 +1,86 @@
+{
+	"modules": [{
+		"name": "Intro JavaScript",
+		"kind": "preparation",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=112",
+		"level": "easy",
+		"description": "You will learn the basics of JavaScript language",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"value", "type", "operator", "javaScript", "flow", "functions", "array", "error", "structure"
+		]
+	},
+	{
+		"name": "Test: Intro JavaScript",
+		"kind": "test",
+		"link": "http://bbva-moodle.appspot.com/mod/quiz/view.php?id=85",
+		"level": "easy",
+		"description": "Test your knowledge about the basics of JavaScript language",
+		"updated": "2018-02-08",
+		"duration": "30 min",
+		"timing": true,
+		"tags": [
+			"value", "type", "operator", "javaScript", "flow", "functions", "array", "error", "structure"
+		]
+	},
+	{
+		"name": "Advanced JavaScript",
+		"kind": "preparation",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=114",
+		"level": "easy",
+		"description": "You will learn how to use OOP, async operations and modules in JavaScript",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"javaScript", "scope", "apply", "call", "bind", "oop", "async", "closure", "module"
+		]
+	}, {
+		"name": "Testing",
+		"kind": "preparation",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=115",
+		"level": "easy",
+		"description": "You will learn how to apply Unit Testing in your apps",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"test", "mocha", "chai"
+		]
+	}, {
+		"name": "Front-End Concepts",
+		"kind": "preparation",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=116",
+		"level": "easy",
+		"description": "You will learn about the lifecycle of a web application (events)",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"front", "front-end", "event", "xml", "http", "request", "dom", "node", "storage"
+		]
+	},
+	{
+		"name": "Test: Front-End Concepts",
+		"kind": "test",
+		"link": "http://bbva-moodle.appspot.com/mod/quiz/view.php?id=95",
+		"level": "easy",
+		"description": "Test your knowledge about Front-End Concepts",
+		"updated": "2018-02-08",
+		"duration": "180 min",
+		"timing": true,
+		"tags": [
+			"front", "front-end", "event", "xml", "http", "request", "dom", "node", "storage"
+		]
+	},
+	{
+		"name": "ECMAScript 6 Appendix",
+		"kind": "preparation",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=117",
+		"level": "easy",
+		"description": "You will learn the new features and improvements in ECMAScript 6",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"constant", "ECMAScript", "scope", "class", "promise", "module", "property"
+		]
+}]
+}

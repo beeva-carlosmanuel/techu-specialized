@@ -1,0 +1,258 @@
+{
+	"modules": [{
+		"name": "Polymer Training",
+		"kind": "training",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=125",
+		"level": "medium",
+		"description": "You will learn how to start working with Polymer creating custom HTML elements",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"polymer", "dom", "lifecycle", "event", "utility", "style", "reactive", "property"
+		]
+	},
+	{
+		"name": "Test: Polymer Training",
+		"kind": "test",
+		"link": "http://bbva-moodle.appspot.com/mod/quiz/view.php?id=88",
+		"level": "medium",
+		"description": "Test your knowledge about Polymer",
+		"updated": "2018-02-08",
+		"duration": "30 min",
+		"timing": true,
+		"tags": [
+			"polymer", "dom", "lifecycle", "event", "utility", "style", "reactive", "property"
+		]
+	},
+	{
+		"name": "Cells Basic Concepts",
+		"kind": "training",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=120",
+		"level": "medium",
+		"description": "You will learn how works the architecture of Cells",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"cells", "data", "flow", "navigation", "model", "user", "interface", "theme", "style"
+		]
+	},
+	{
+		"name": "Lab: Create a standalone Cells component",
+		"kind": "traininglab",
+		"link": "https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-component-standalone/index.html#0",
+		"level": "medium",
+		"description": "Build a standalone Cells component",
+		"updated": "2018-02-08",
+		"duration": "36 min",
+		"timing": true,
+		"tags": [
+			"cells", "data", "flow", "navigation", "model", "user", "interface", "theme", "style"
+		]
+	},
+	{
+		"name": "Lab: Your first application using Cells Bridge",
+		"kind": "traininglab",
+		"link": "https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-app-first-steps/index.html#0",
+		"level": "medium",
+		"description": "Develop an app with Cells Bridge",
+		"updated": "2018-03-07",
+		"duration": "62 min",
+		"timing": true,
+		"tags": [
+			"cells", "data", "flow", "navigation", "model", "user", "interface", "theme", "style"
+		]
+	},
+	{
+		"name": "Lab: How to use CI",
+		"kind": "traininglab",
+		"link": "https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-continuous-integration/index.html#0",
+		"level": "medium",
+		"description": "Start with Continuous Integration in Cells",
+		"updated": "2018-02-08",
+		"duration": "40 min",
+		"timing": true,
+		"tags": [
+			"cells", "data", "flow", "navigation", "model", "user", "interface", "theme", "style"
+		]
+	},
+	{
+		"name": "Test: Cells Basic Concepts",
+		"kind": "test",
+		"link": "http://bbva-moodle.appspot.com/mod/quiz/view.php?id=89",
+		"level": "medium",
+		"description": "Test your knowledge about Cells",
+		"updated": "2018-02-08",
+		"duration": "30 min",
+		"timing": true,
+		"tags": [
+			"cells", "data", "flow", "navigation", "model", "user", "interface", "theme", "style"
+		]
+	},
+	{
+		"name": "Styling Web Components",
+		"kind": "training",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=119",
+		"level": "easy",
+		"description": "You will learn the main rules about layout and styling of Web Components",
+		"updated": "2018-02-08",
+		"timing": false,
+		"tags": [
+			"e2e",
+			"pepino",
+			"functional",
+			"cucumber",
+			"Gherkin",
+			"cli"
+		]
+	},
+	{
+		"name": "Lab: Styling Components",
+		"kind": "traininglab",
+		"link": "https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-component-styling/index.html#0",
+		"level": "medium",
+		"description": "You will learn how to use Shadow DOM, styles and properties",
+		"updated": "2018-02-08",
+		"duration": "63 min",
+		"timing": true,
+		"tags": [
+			"e2e",
+			"pepino",
+			"functional",
+			"cucumber",
+			"Gherkin",
+			"cli"
+		]
+	},
+	{
+		"name": "Lab: Certify Components",
+		"kind": "traininglab",
+		"link": "https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-component-certification/index.html#0",
+		"level": "medium",
+		"description": "You will learn how to validate your Cells components",
+		"updated": "2018-02-08",
+		"duration": "18 min",
+		"timing": true,
+		"tags": [
+			"e2e",
+			"pepino",
+			"functional",
+			"cucumber",
+			"Gherkin",
+			"cli"
+		]
+	},
+	{
+		"name": "Communication system in Web Components",
+		"kind": "training",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=121",
+		"level": "medium",
+		"description": "You will learn about events",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"event", "property", "communication", "architecture"
+		]
+	},
+	{
+		"name": "Test: Web Components communication system",
+		"kind": "test",
+		"link": "http://bbva-moodle.appspot.com/mod/quiz/view.php?id=94",
+		"level": "medium",
+		"description": "Test your knowledge about events",
+		"updated": "2018-02-08",
+		"duration": "10 min",
+		"timing": true,
+		"tags": [
+			"event", "property", "communication", "architecture"
+		]
+	},
+	{
+		"name": "Testing Web Components",
+		"kind": "training",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=122",
+		"level": "medium",
+		"description": "You will learn how to apply TDD in your development lifecycle",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"testing", "tdd", "cells"
+		]
+	},
+	{
+		"name": "Lab: Testing Components",
+		"kind": "traininglab",
+		"link": "https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-component-testing/index.html#0",
+		"level": "medium",
+		"description": "You will learn how to test your components",
+		"updated": "2018-02-08",
+		"duration": "38 min",
+		"timing": true,
+		"tags": [
+			"testing", "tdd", "cells"
+		]
+	},
+	{
+		"name": "Composition Pattern in Web Components",
+		"kind": "training",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=123",
+		"level": "medium",
+		"description": "You will learn about app decomposition",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"component", "architecture", "cells", "reutilization"
+		]
+	},
+	{
+		"name": "Developing a Cells Web App with Cordova",
+		"kind": "training",
+		"link": "http://bbva-moodle.appspot.com/mod/book/view.php?id=124",
+		"level": "medium",
+		"description": "You will learn how to build Cordova app",
+		"updated": "2018-02-05",
+		"timing": false,
+		"tags": [
+			"apache", "cordova", "cells", "application", "app", "package"
+		]
+	},
+	{
+		"name": "Lab: Cells Plugins",
+		"kind": "traininglab",
+		"link": "https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-cordova-plugins/index.html#0",
+		"level": "medium",
+		"description": "You will learn how to build Cordova app",
+		"updated": "2018-02-08",
+		"duration": "105 min",
+		"timing": true,
+		"tags": [
+			"apache", "cordova", "cells", "application", "app", "package"
+		]
+	},
+	{
+		"name": "Lab: Cells Hybrid Android App",
+		"kind": "traininglab",
+		"link": "https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-app-hybrid-android/index.html#0",
+		"level": "medium",
+		"description": "You will learn how to build a hybrid app",
+		"updated": "2018-02-08",
+		"duration": "35 min",
+		"timing": true,
+		"tags": [
+			"apache", "cordova", "cells", "application", "app", "package"
+		]
+	},
+	{
+		"name": "Test: Developing a Cells Web App with Cordova",
+		"kind": "test",
+		"link": "http://bbva-moodle.appspot.com/mod/quiz/view.php?id=87",
+		"level": "medium",
+		"description": "Test your knowledge about Cordova",
+		"updated": "2018-02-08",
+		"duration": "30 min",
+		"timing": true,
+		"tags": [
+			"apache", "cordova", "cells", "application", "app", "package"
+		]
+	}
+]
+}

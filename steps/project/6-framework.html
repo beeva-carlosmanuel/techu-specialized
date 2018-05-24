@@ -1,0 +1,156 @@
+<style>
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-2 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left !important;
+    padding: 5px 5px !important;
+    font-size: 12px !important;
+  }
+
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-4 {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-4 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    padding: 5px 5px;
+    font-size: 14px;
+  }
+
+  .h2-bullet {
+    display:inline;
+  }
+
+  .cells-bullet {
+    width: 2.5% !important;
+    vertical-align: unset !important;
+    margin-right: 4px;
+  }
+
+  .horizontal-center {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .strong {
+    font-weight: bold;
+  }
+
+  .border-1 {
+    border: 1px solid #cccccc;
+  }
+</style>
+<template is="dom-bind">
+  <div slot="markdown-html">
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="overview">Adding Cells Component App Header</h2></span>
+    <p>Our work folder where we will work is the <strong>app/</strong>. We must work only in this folder almost always.</p>
+    <p>The base application code comes with <strong>Cells Template Zones</strong> installed.</p>
+    <p>
+      <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200&view=demo#/component/cells-template-zones">
+        <img class="border-1" src="images/cells-template-zones.png"/>
+      </a>
+    </p>
+    <p>We can use several template components from the <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200#/">Cells Catalog</a>.</p>
+    <p>
+      For this application we will take advantage of the component <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200&view=demo#/component/cells-template-zones"><strong>cells-template-zones</strong></a>
+      and we will add the <strong>Cells component App Header</strong> to show a header title in our application.
+    </p>
+    <p>
+      <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200&view=demo#/component/cells-component-app-header">
+        <img class="border-1" src="images/cells-component-app-header.png"/>
+      </a>
+    </p>
+    <p>The first thing to do is install the component with the following command in the root of your project:</p>
+    <p>
+      <pre><code class="lang-sh"><span class="pln">bower install </span><span class="pun">--</span><span class="pln">save cells</span><span class="pun">-</span><span class="pln">component</span><span class="pun">-</span><span class="pln">app</span><span class="pun">-</span><span class="pln">header</span></code></pre>
+    </p>
+    <p>Next, we go to edit the file <strong>app/composerMocksTpl/login.json</strong></p>
+    <p><pre class="prettyprint"><code class="lang-json">
+{
+  "template": {
+    "familyPath": "cells-template-zones",
+    "tag": "cells-template-zones",
+    "properties": {
+      "disableEdgeSwipe": true,
+      "headerFixed": true
+    }
+  },
+  "components": []
+}</code></pre></p>
+    <p>..and add in the component array the following code:</p>
+    <p><pre class="prettyprint"><code class="lang-json">
+{
+  "template": {
+    "familyPath": "cells-template-zones",
+    "tag": "cells-template-zones",
+    "properties": {
+      "disableEdgeSwipe": true,
+      "headerFixed": true
+    }
+  },
+  "components": [
+    {
+      "zone": "app__header",
+      "tag": "cells-component-app-header",
+      "properties": {
+        "text": ".- Foreign Exchange -."
+      }
+    }
+  ]
+}</code></pre></p>
+    <p>As you can see, we are indicated in this code the <strong>zone</strong> where we want to show the header component, the <strong>tag</strong> that will be created, and a set of <strong>properties</strong>. In this case, we only want to set the text of the header.</p>
+    <p>This header allows you to incorporate buttons to this header to add menus and links.</p>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="launch-app">Launching our application again</h2></span>
+    <p>Now, build and launch your application with:</p>
+    <pre><code class="lang-sh"><span class="pln">cells app</span><span class="pun">:</span><span class="pln">serve </span></code></pre>
+    <p>A new tab is open automatically showing our changes:</p>
+    <p>
+      <img class="border-1" src="images/header.png"/>
+    </p>
+    <p>Remember that the command "cells app:serve" build too the application, so this command will generate a lot of files in folders like <strong>build/</strong> and <strong>dist/</strong>.</p>
+    <p>You not need upload these folders to your repository. In fact, these folders are included in the .gitignore file and will be ignored to be uploaded.</p>
+    <p><h3>References:</h3></p>
+    <p>
+    <ul>
+      <li>
+        Documentation
+        <ul>
+          <li><a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/index.html">BBVA Ether Platform - What is CELLS?</a></li>
+          <li><a target="_blank" href="http://bbva-moodle.appspot.com/course/index.php?categoryid=5">BBVA Ether Moodle - Cells Training</a></li>
+          <li><a target="_blank" href="https://globaldevtools.bbva.com/platform_docs/">ETHER</a></li>
+        </ul>
+      </li>
+      <li>
+        <a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/index.html">Cells Codelabs</a>
+        <ul>
+          <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-environment/index.html#0">Codelab "Prepare your Cells environment"</a></li>
+          <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-app-first-steps/index.html">Cells First App</a></li>
+          <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-continuous-integration/index.html">Continuous Integration</a></li>
+        </ul>
+      </li>
+      <li>
+        Communities
+        <ul>
+          <li><a target="_blank" href="https://cellsjs.slack.com/messages/C09T2GJSX/details/">cellsjs.slack</a></li>
+          <li><a target="_blank" href="https://plus.google.com/communities/109489428539696676001">Cells Google+</a></li>
+          <li><a target="_blank" href="https://bbva-askbot.appspot.com/">Ask Bot</a></li>
+          <li><a target="_blank" href="https://bbva-askbot.appspot.com/questions/scope:all/sort:activity-desc/tags:Cells/page:1/">Ask Bot Cells</a></li>
+        </ul>
+      </li>
+    </ul>
+    </p>
+  </div>
+</template>
+

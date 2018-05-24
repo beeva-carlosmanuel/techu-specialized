@@ -1,0 +1,712 @@
+<style>
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-2 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left !important;
+    padding: 5px 5px !important;
+    font-size: 12px !important;
+  }
+
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-4 {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-4 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    padding: 5px 5px;
+    font-size: 14px;
+  }
+
+  .h2-bullet {
+    display:inline;
+  }
+
+  .cells-bullet {
+    width: 2.5% !important;
+    vertical-align: unset !important;
+    margin-right: 4px;
+  }
+
+  .horizontal-center {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .strong {
+    font-weight: bold !important;
+  }
+
+  .border-1 {
+    border: 1px solid #cccccc;
+  }
+</style>
+<template is="dom-bind">
+  <div slot="markdown-html">
+    <p>
+      We are going to create a <strong>dynamic currency converter</strong>. For this challenge our application will exchange automatically
+      a given amount of money with a real exchange rate, from a selected currency to a selected currency. We will obtain the rate from the API <a href="https://fixer.io/" target="_blank">https://fixer.io/</a>. </p>
+    <p>
+      <img class="border-1" src="images/dynamic-forex.png"/>
+    </p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="selects-element">Currency selectors</h2></span>
+    <p>Now we going to create a new element with two drop-down lists, one for origin currency and another for result currency.</p>
+    <p>Create the <code>app/elements/foreign-exchange</code> folder, with the file <code>foreign-exchange.html</code> inside, with the basic structure of elements and customize the code.</p>
+<pre><code class="lang-html"><span class="tag">&lt;dom-module</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"foreign-exchange"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;template&gt;</span><span class="pln">
+    </span><span class="tag">&lt;style&gt;</span><span class="pln">
+      </span><span class="pun">:</span><span class="pln">host </span><span class="pun">{</span><span class="pln">
+        display</span><span class="pun">:</span><span class="pln"> block</span><span class="pun">;</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="tag">&lt;/style&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/template&gt;</span><span class="pln">
+  </span><span class="tag">&lt;script&gt;</span><span class="pln">
+    </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">foreignExchange</span><span class="pln"> extends </span><span class="typ">Polymer</span><span class="pun">.</span><span class="typ">Element</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">get</span><span class="pln"> is</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'foreign-exchange'</span><span class="pun">;</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      </span><span class="com">// Declare properties for the element's public API</span><span class="pln">
+      </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">get</span><span class="pln"> properties</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="pun">{};</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    customElements</span><span class="pun">.</span><span class="pln">define</span><span class="pun">(</span><span class="typ">foreignExchange</span><span class="pun">.</span><span class="pln">is</span><span class="pun">,</span><span class="pln"> </span><span class="typ">foreignExchange</span><span class="pun">);</span><span class="pln">
+  </span><span class="tag">&lt;/script&gt;</span><span class="pln">
+</span><span class="tag">&lt;/dom-module&gt;</span></code></pre>
+<!--
+    <p>
+      <img class="border-1" src="images/my-greeting.png"/>
+    </p>
+  -->
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="selects-component">Adding Select Component from Cells Catalog</h2></span>
+    <p>Let's use drop down components to select the currency from we want convert and the currency to we want convert our money. This component must be installed with the next command line:</p>
+    <p>
+    <pre class=" prettyprint lang-sh">bower install --save cells-select</pre>
+    </p>
+    <p>On file <code><strong>app/tpls/initial-components-imports.tpl</strong></code> we must load the component:</p>
+    <p><pre><code><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"import"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"cells-select/cells-select.html"</span><span class="tag">&gt;</span><span class="pln"></span></code></pre></p>
+    <p>On the next build & launch with command cells app:serve this component will be installed with all their dependencies.</p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="input-element">Creating a customized element with two selects components</h2></span>
+    <p>Now we are going to add the code in <code>foreign-exchange.html</code>:</p>
+    <h3 class="h2-bullet" id="foreign-exchange-template">Adding template</h3>
+<pre><code class="lang-html"><span class="tag">&lt;dom-module</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"foreign-exchange"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;template</span><span class="pln"> </span><span class="atn">is</span><span class="pun">=</span><span class="atv">"dom-bind"</span><span class="tag">&gt;</span><span class="pln">
+    </span><span class="tag">&lt;style</span><span class="pln"> </span><span class="atn">include</span><span class="pun">=</span><span class="atv">"cells-grid-template-styles"</span><span class="tag">&gt;&lt;/style&gt;</span><span class="pln">
+    </span><span class="tag">&lt;style&gt;</span><span class="pln">
+      </span><span class="pun">:</span><span class="pln">host </span><span class="pun">{</span><span class="pln">
+        display</span><span class="pun">:</span><span class="pln"> block</span><span class="pun">;</span><span class="pln">
+        padding</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1em</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+        margin</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">auto</span><span class="pln"> </span><span class="kwd">auto</span><span class="pln"> </span><span class="lit">4rem</span><span class="pun">;</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      cells</span><span class="pun">-</span><span class="kwd">select</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        background</span><span class="pun">-</span><span class="pln">color</span><span class="pun">:</span><span class="pln"> </span><span class="com">#DDDDDD;</span><span class="pln">
+        margin</span><span class="pun">-</span><span class="pln">bottom</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2em</span><span class="pun">;</span><span class="pln">
+
+        </span><span class="pun">--</span><span class="pln">cells</span><span class="pun">-</span><span class="kwd">select</span><span class="pun">-</span><span class="pln">icon</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          margin</span><span class="pun">-</span><span class="pln">right</span><span class="pun">:</span><span class="pln"> </span><span class="lit">8px</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">};</span><span class="pln">
+
+        </span><span class="pun">--</span><span class="pln">cells</span><span class="pun">-</span><span class="kwd">select</span><span class="pun">-</span><span class="pln">item</span><span class="pun">-</span><span class="pln">title</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          max</span><span class="pun">-</span><span class="pln">width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">90px</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">};</span><span class="pln">
+
+        </span><span class="pun">--</span><span class="pln">cells</span><span class="pun">-</span><span class="kwd">select</span><span class="pun">-</span><span class="pln">item</span><span class="pun">-</span><span class="pln">description</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          font</span><span class="pun">-</span><span class="pln">size</span><span class="pun">:</span><span class="pln"> </span><span class="lit">12px</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">};</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      </span><span class="com">#currencyFrom {</span><span class="pln">
+        z</span><span class="pun">-</span><span class="pln">index</span><span class="pun">:</span><span class="pln"> </span><span class="lit">3</span><span class="pun">;</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="tag">&lt;/style&gt;</span><span class="pln">
+
+    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"select-exchange"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"cgt"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"cgt-col-xs-8 cgt-col-sm-4 cgt-col-md-6 cgt-col-lg-6"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="tag">&lt;cells-select</span><span class="pln">
+          </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"currencyFrom"</span><span class="pln">
+          </span><span class="atn">options</span><span class="pun">=</span><span class="atv">"[[optionsFrom]]"</span><span class="pln">
+          </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Origin currency"</span><span class="pln">
+          </span><span class="atn">right-icon</span><span class="pun">=</span><span class="atv">"coronita:unfold"</span><span class="pln">
+          </span><span class="atn">placeholder</span><span class="pun">=</span><span class="atv">"Select a currency"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="tag">&lt;/cells-select&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+      </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"cgt-col-xs-8 cgt-col-sm-4 cgt-col-md-6 cgt-col-lg-6"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="tag">&lt;cells-select</span><span class="pln">
+          </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"currencyTo"</span><span class="pln">
+          </span><span class="atn">options</span><span class="pun">=</span><span class="atv">"[[optionsTo]]"</span><span class="pln">
+          </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Destination currency"</span><span class="pln">
+          </span><span class="atn">right-icon</span><span class="pun">=</span><span class="atv">"coronita:unfold"</span><span class="pln">
+          </span><span class="atn">placeholder</span><span class="pun">=</span><span class="atv">"Select a currency"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="tag">&lt;/cells-select&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/div&gt;</span><span class="pln">
+  </span><span class="tag">&lt;/template&gt;</span><span class="pln">
+</span></code></pre>
+<!--
+    <p class="border-1">
+      <img style="width: 90%;" src="images/foreign-exchange-template.png"/>
+      <br/>
+    </p>
+  -->
+    <p>
+      As you can see in the code, we add two cells-select tags and set a param called <strong>options</strong> to load the options array in the drop down by using
+      <a target="_blank" href="https://www.polymer-project.org/2.0/docs/devguide/data-binding">one-way data binding to a target property</a>.
+      We will define and initialize that array in the script tag of the component later.
+    </p>
+    <p>Note too that we have included the next tag in our template. We need do that to make use of the grid template styles.</p>
+<pre><code class="lang-html"><span class="tag">&lt;style</span><span class="pln"> </span><span class="atn">include</span><span class="pun">=</span><span class="atv">"cells-grid-template-styles"</span><span class="tag">&gt;&lt;/style&gt;</span></code></pre>
+    <p>
+      We are included several mixins in the style tag to customize the cells-select style. You can find this in
+      <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200&view=docs#/component/cells-select">cells-select documentation</a>.
+    </p>
+    <br/>
+    <h3 class="h2-bullet" id="foreign-exchange-script">Adding script</h3>
+    <p>On the script section, we are going to define, in the properties section, two arrays: one for the drop-down "currencyFrom" and another for "currencyTo". Let's got to <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200&view=docs#/component/cells-select">cells-select component documentation</a> to get help about this array structure.</p>
+<pre><code class="lang-html"><span class="pln">
+  </span><span class="tag">&lt;script&gt;</span><span class="pln">
+    </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">ForeignExchange</span><span class="pln"> extends </span><span class="typ">Polymer</span><span class="pun">.</span><span class="typ">Element</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">get</span><span class="pln"> is</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'foreign-exchange'</span><span class="pun">;</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">get</span><span class="pln"> properties</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+        </span><span class="kwd">var</span><span class="pln"> optionsFrom </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'EUR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Euro'</span><span class="pun">,</span><span class="pln">                  </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'USD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar estadounidense'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'2'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'AUD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar australiano'</span><span class="pun">,</span><span class="pln">     </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'3'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'BGN'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Leva búlgara'</span><span class="pun">,</span><span class="pln">          </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'4'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'BRL'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Real brasileño'</span><span class="pun">,</span><span class="pln">        </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'5'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'CAD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar canadiense'</span><span class="pun">,</span><span class="pln">      </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'6'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'CHF'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Franco suizo'</span><span class="pun">,</span><span class="pln">          </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'7'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'CNY'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Yuan renminbi chino'</span><span class="pun">,</span><span class="pln">   </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'8'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'CZK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Corona checa'</span><span class="pun">,</span><span class="pln">          </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'9'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'DKK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Corona danesa'</span><span class="pun">,</span><span class="pln">         </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'10'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'GBP'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Libra esterlina'</span><span class="pun">,</span><span class="pln">       </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'11'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'HKD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar de Hong Kong'</span><span class="pun">,</span><span class="pln">    </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'12'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'HRK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Kuna croata'</span><span class="pun">,</span><span class="pln">           </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'13'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'HUF'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Florín húngaro'</span><span class="pun">,</span><span class="pln">        </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'14'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'IDR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Rupia indonesia'</span><span class="pun">,</span><span class="pln">       </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'15'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'ILS'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Shequel israeli'</span><span class="pun">,</span><span class="pln">       </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'16'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'INR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Rupia india'</span><span class="pun">,</span><span class="pln">           </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'17'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'ISK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Corona islándica'</span><span class="pun">,</span><span class="pln">      </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'18'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'JPY'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Yen japonés'</span><span class="pun">,</span><span class="pln">           </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'19'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'KRW'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Won surcoreano'</span><span class="pun">,</span><span class="pln">        </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'20'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'MXN'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Peso mexicano'</span><span class="pun">,</span><span class="pln">         </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'21'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'MYR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Ringgit malasio'</span><span class="pun">,</span><span class="pln">       </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'22'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'NOK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Corona noruega'</span><span class="pun">,</span><span class="pln">        </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'23'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'NZD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar neozelandés'</span><span class="pun">,</span><span class="pln">     </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'24'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'PHP'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Piso filipino'</span><span class="pun">,</span><span class="pln">         </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'25'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'PLN'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Zloty polaco'</span><span class="pun">,</span><span class="pln">          </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'26'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'RON'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Leu rumano'</span><span class="pun">,</span><span class="pln">            </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'27'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'RUB'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Rublo ruso'</span><span class="pun">,</span><span class="pln">            </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'28'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'SEK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Corona sueca'</span><span class="pun">,</span><span class="pln">          </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'29'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'SGD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar singapurense'</span><span class="pun">,</span><span class="pln">    </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'30'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'THB'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Baht tailandés'</span><span class="pun">,</span><span class="pln">        </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'31'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'TRY'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Lira turca'</span><span class="pun">,</span><span class="pln">            </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'32'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'ZAR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Rand sudafricano'</span><span class="pun">,</span><span class="pln">      </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">];</span><span class="pln">
+
+        </span><span class="kwd">var</span><span class="pln"> optionsTo </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'0'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'EUR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Euro'</span><span class="pun">,</span><span class="pln">                  </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'1'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'USD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar estadounidense'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'2'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'AUD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar australiano'</span><span class="pun">,</span><span class="pln">     </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'3'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'BGN'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Leva búlgara'</span><span class="pun">,</span><span class="pln">          </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'4'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'BRL'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Real brasileño'</span><span class="pun">,</span><span class="pln">        </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'5'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'CAD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar canadiense'</span><span class="pun">,</span><span class="pln">      </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'6'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'CHF'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Franco suizo'</span><span class="pun">,</span><span class="pln">          </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'7'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'CNY'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Yuan renminbi chino'</span><span class="pun">,</span><span class="pln">   </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'8'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'CZK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Corona checa'</span><span class="pun">,</span><span class="pln">          </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'9'</span><span class="pun">,</span><span class="pln">  </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'DKK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Corona danesa'</span><span class="pun">,</span><span class="pln">         </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'10'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'GBP'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Libra esterlina'</span><span class="pun">,</span><span class="pln">       </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'11'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'HKD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar de Hong Kong'</span><span class="pun">,</span><span class="pln">    </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'12'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'HRK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Kuna croata'</span><span class="pun">,</span><span class="pln">           </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'13'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'HUF'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Florín húngaro'</span><span class="pun">,</span><span class="pln">        </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'14'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'IDR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Rupia indonesia'</span><span class="pun">,</span><span class="pln">       </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'15'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'ILS'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Shequel israeli'</span><span class="pun">,</span><span class="pln">       </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'16'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'INR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Rupia india'</span><span class="pun">,</span><span class="pln">           </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'17'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'ISK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Corona islándica'</span><span class="pun">,</span><span class="pln">      </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'18'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'JPY'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Yen japonés'</span><span class="pun">,</span><span class="pln">           </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'19'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'KRW'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Won surcoreano'</span><span class="pun">,</span><span class="pln">        </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'20'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'MXN'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Peso mexicano'</span><span class="pun">,</span><span class="pln">         </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'21'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'MYR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Ringgit malasio'</span><span class="pun">,</span><span class="pln">       </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'22'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'NOK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Corona noruega'</span><span class="pun">,</span><span class="pln">        </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'23'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'NZD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar neozelandés'</span><span class="pun">,</span><span class="pln">     </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'24'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'PHP'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Piso filipino'</span><span class="pun">,</span><span class="pln">         </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'25'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'PLN'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Zloty polaco'</span><span class="pun">,</span><span class="pln">          </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'26'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'RON'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Leu rumano'</span><span class="pun">,</span><span class="pln">            </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'27'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'RUB'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Rublo ruso'</span><span class="pun">,</span><span class="pln">            </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'28'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'SEK'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Corona sueca'</span><span class="pun">,</span><span class="pln">          </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'29'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'SGD'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Dólar singapurense'</span><span class="pun">,</span><span class="pln">    </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'30'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'THB'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Baht tailandés'</span><span class="pun">,</span><span class="pln">        </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'31'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'TRY'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Lira turca'</span><span class="pun">,</span><span class="pln">            </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">},</span><span class="pln">
+          </span><span class="pun">{</span><span class="pln"> </span><span class="str">'idx'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'32'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'title'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'ZAR'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'description'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Rand sudafricano'</span><span class="pun">,</span><span class="pln">      </span><span class="str">'icon'</span><span class="pun">:</span><span class="pln"> </span><span class="str">'coronita:currencyexchange'</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">];</span><span class="pln">
+
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          optionsFrom</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            type</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Object</span><span class="pun">,</span><span class="pln">
+            value</span><span class="pun">:</span><span class="pln"> optionsFrom</span><span class="pun">,</span><span class="pln">
+            notify</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pln">
+          </span><span class="pun">},</span><span class="pln">
+          optionsTo</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            type</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Object</span><span class="pun">,</span><span class="pln">
+            value</span><span class="pun">:</span><span class="pln"> optionsTo</span><span class="pun">,</span><span class="pln">
+            notify</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pln">
+          </span><span class="pun">},</span><span class="pln">
+          currencyFromSelected</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            type</span><span class="pun">:</span><span class="pln"> </span><span class="typ">String</span><span class="pun">,</span><span class="pln">
+            notify</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pln">
+          </span><span class="pun">},</span><span class="pln">
+          currencyToSelected</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            type</span><span class="pun">:</span><span class="pln"> </span><span class="typ">String</span><span class="pun">,</span><span class="pln">
+            notify</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pln">
+          </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      ready</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        super</span><span class="pun">.</span><span class="pln">ready</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">$</span><span class="pun">.</span><span class="pln">currencyFrom</span><span class="pun">.</span><span class="pln">resetSelection</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">$</span><span class="pun">.</span><span class="pln">currencyTo</span><span class="pun">.</span><span class="pln">resetSelection</span><span class="pun">();</span><span class="pln">
+
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">$</span><span class="pun">.</span><span class="pln">currencyFrom</span><span class="pun">.</span><span class="pln">selectOption</span><span class="pun">(</span><span class="lit">1</span><span class="pun">);</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">$</span><span class="pun">.</span><span class="pln">currencyTo</span><span class="pun">.</span><span class="pln">selectOption</span><span class="pun">(</span><span class="lit">0</span><span class="pun">);</span><span class="pln">
+
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyFromSelected </span><span class="pun">=</span><span class="pln"> </span><span class="str">'USD'</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyToSelected </span><span class="pun">=</span><span class="pln"> </span><span class="str">'EUR'</span><span class="pun">;</span><span class="pln">
+
+        </span><span class="com">// Creamos los Oyentes y los métodos callbacks que se lanzarán al producirse el evento</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">$</span><span class="pun">.</span><span class="pln">currencyFrom</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'select-item-selected'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyFromChanged</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">));</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">$</span><span class="pun">.</span><span class="pln">currencyTo</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'select-item-selected'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyToChanged</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">));</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      </span><span class="com">// Método callback que se lanza al producirse el evento de cambio en el desplegable currencyFrom</span><span class="pln">
+      currencyFromChanged</span><span class="pun">(</span><span class="pln">evt</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">let</span><span class="pln"> data </span><span class="pun">=</span><span class="pln"> evt</span><span class="pun">.</span><span class="pln">detail</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyFromSelected </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">.</span><span class="pln">title</span><span class="pun">;</span><span class="pln">
+        </span><span class="com">// Lanzamos un nuevo evento para que el componente forex-dm lo capture</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">dispatchEvent</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">CustomEvent</span><span class="pun">(</span><span class="str">'currency-from-changed-event'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">detail</span><span class="pun">:</span><span class="pln">data</span><span class="pun">}));</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      </span><span class="com">// Método callback que se lanza al producirse el evento de cambio en el desplegable currencyFrom</span><span class="pln">
+      currencyToChanged</span><span class="pun">(</span><span class="pln">evt</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">let</span><span class="pln"> data </span><span class="pun">=</span><span class="pln"> evt</span><span class="pun">.</span><span class="pln">detail</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyToSelected </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">.</span><span class="pln">title</span><span class="pun">;</span><span class="pln">
+        </span><span class="com">// Lanzamos un nuevo evento para que el componente forex-dm lo capture</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">dispatchEvent</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">CustomEvent</span><span class="pun">(</span><span class="str">'currency-to-changed-event'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">detail</span><span class="pun">:</span><span class="pln">data</span><span class="pun">}));</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="pun">}</span><span class="pln">
+    customElements</span><span class="pun">.</span><span class="pln">define</span><span class="pun">(</span><span class="typ">ForeignExchange</span><span class="pun">.</span><span class="pln">is</span><span class="pun">,</span><span class="pln"> </span><span class="typ">ForeignExchange</span><span class="pun">);</span><span class="pln">
+  </span><span class="tag">&lt;/script&gt;</span><span class="pln">
+</span><span class="tag">&lt;/dom-module&gt;</span></code></pre>
+<!--
+    <p class="border-1">
+      <img src="images/foreign-exchange-script-1.png"/>
+      <br/>
+    </p>
+    <p class="border-1">
+      <img src="images/foreign-exchange-script-2.png"/>
+      <br/>
+    </p>
+    <p class="border-1">
+      <img src="images/foreign-exchange-script-3.png"/>
+      <br/>
+    </p>
+  -->
+    <p>In the ready() function we initialize our drop-downs and create the listeners and callbacks to launch when selects change. We can get the event name <strong>select-item-selected</strong> from the <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200&view=docs#/component/cells-select">cells-select component documentation</a> .</p>
+    <p>In each callback function we dispatch a new event to communicate to other components the change of every select: <strong>currency-from-changed-event</strong>, and <strong>currency-to-changed-event</strong>.</p>
+    <br/>
+    <h3 class="h2-bullet" id="Setting-input">Adding this new element to our page</h3>
+    <p>To show our new element in the page, we must set our element configuration in the login.json, adding the configuration to the components array:</p>
+<pre><code class="lang-json"><span class="pun">{</span><span class="pln">
+  </span><span class="str">"zone"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"app__main"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"UI"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"familyPath"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"../elements/foreign-exchange"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"tag"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"foreign-exchange"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"properties"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"cellsConnections"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="str">"in"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+      </span><span class="pun">},</span><span class="pln">
+      </span><span class="str">"out"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="str">"currency-from-channel"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="str">"bind"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"currency-from-changed-event"</span><span class="pln">
+        </span><span class="pun">},</span><span class="pln">
+        </span><span class="str">"currency-to-channel"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="str">"bind"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"currency-to-changed-event"</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<!--
+    <p class="border-1">
+      <img style="max-width: 50%;" src="images/foreign-exchange-configuration.png"/>
+    </p>
+-->
+    <p>In the element's properties we are defining two channels that send information to the channels when the selects values changed. Other components will be listen this channels and get the news values.</p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="customize-theme-component">Creating customized Theme</h2></span>
+    <p>We can customize our application on several levels. Let's see how.</p>
+    <h3 class="h2-bullet" id="custom-theme-template">Create a custom theme for your application</h3>
+    <p>Let's create a theme to give it a better look. The theme is a <custom-style> element that we use to adjust the style of the components according to what we need.</p>
+    <p>Create a new <code>app/elements/forex-theme</code> folder and inside it create a new <code>forex-theme.html</code> file.</p>
+    <p>As example, we are going to change simply the style of text header. You can see information about this mixin <pre>--cells-component-app-header-title</pre>
+    in the <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200&view=docs#/component/cells-component-app-header">cells-component-app-header component</a>
+    of the <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200#/">Cells Catalog.</a> </p>
+    <p>This is our <code>forex-theme.html</code> code for now:</p>
+<pre><code class="lang-html"><span class="tag">&lt;custom-style&gt;</span><span class="pln">
+    </span><span class="tag">&lt;style</span><span class="pln"> </span><span class="atn">is</span><span class="pun">=</span><span class="atv">"custom-style"</span><span class="tag">&gt;</span><span class="pln">
+        cells</span><span class="pun">-</span><span class="pln">component</span><span class="pun">-</span><span class="pln">app</span><span class="pun">-</span><span class="pln">header </span><span class="pun">{</span><span class="pln">
+            </span><span class="pun">--</span><span class="pln">cells</span><span class="pun">-</span><span class="pln">component</span><span class="pun">-</span><span class="pln">app</span><span class="pun">-</span><span class="pln">header</span><span class="pun">-</span><span class="pln">title</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+                font</span><span class="pun">-</span><span class="pln">weight</span><span class="pun">:</span><span class="pln"> bold</span><span class="pun">;</span><span class="pln">
+                font</span><span class="pun">-</span><span class="pln">style</span><span class="pun">:</span><span class="pln"> italic</span><span class="pun">;</span><span class="pln">
+            </span><span class="pun">};</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+    </span><span class="tag">&lt;/style&gt;</span><span class="pln">
+ </span><span class="tag">&lt;/custom-style&gt;</span></code></pre>
+    <p>We must import the theme in the file <code><strong>app/tpls/initial-components-imports.tpl</strong></code> file with:</p>
+    <pre><code class="lang-html"><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"import"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"../elements/forex-theme/forex-theme.html"</span><span class="tag">&gt;</span></code></pre>
+    <p>To reload styles, execute in your terminal:</p>
+    <pre><code>cells app:clean ; cells app:serve</code></pre>
+    <p>We can customize all the styles of our application in this theme file.</p>
+    <br/>
+    <h3 class="h2-bullet" id="theme-and-icons">Global Theme and Icons</h3>
+    <p>
+      The drop down components take use of a theme and icons inside.
+      We will use <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200&view=docs#/component/cells-coronita-theme">Coronita Theme</a> and
+      <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200&view=demo#/component/coronita-icons">Coronita Icons</a>.
+      To get Coronita Theme, we will install this:
+    </p>
+    <pre>bower install --save cells-coronita-theme</pre>
+    <p>We must import the theme in the file <code><strong>app/tpls/initial-components-imports.tpl</strong></code> file with:</p>
+    <pre><code class="lang-html"><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"import"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"cells-coronita-theme/cells-coronita-theme.html"</span><span class="tag">&gt;</span></code></pre>
+    <p>In the same way, we will install the <strong>Coronita Icons</strong>:</p>
+    <pre>bower install --save coronita-icons</pre>
+    <p>and we import the icons in the file <code><strong>app/tpls/initial-components-imports.tpl</strong></code> file with:</p>
+    <pre><code class="lang-html"><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"import"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"coronita-icons/coronita-icons.html"</span><span class="tag">&gt;</span></code></pre>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="data-manager-component">Creating a customized Data Manager component</h2></span>
+    <p>We are going to obtain the current rate from the API called <a href="https://fixer.io/" target="_blank">https://fixer.io/</a></p>
+    <p class="border-1">
+      <img src="images/fixer.io.png"/>
+      <br/>
+    </p>
+    <p>By making a API call to:</p>
+    <pre><code>https://api.fixer.io/latest?base=EUR&symbols=USD</code></pre>
+    <p class="border-1">
+      <img src="images/fixer-io-call.png"/>
+    </p>
+    <p>indicating a base attribute of currency to change from and a attribute "symbols" with the currency to convert, the API return the rate exchange.</p>
+    <p>The first thing to do is install the <code><strong>cells-generic-dp</strong></code> component.</p>
+    <pre>bower install --save cells-generic-dp</pre>
+    <p>For this customized component we are going to create again a new folder <code><strong>app/elements/forex-dm/</strong></code> with the file <code><strong>forex-dm.html</strong></code> inside.</p>
+    <p>Next, link in this file the <code><strong>cells-generic-dp.html</strong></code> file and add the <code><strong>cells-generic-dp</strong></code> tag into template.</p>
+    <p>See the <a target="_blank" href="https://bbva-ether-cellscatalogs.appspot.com/?version=v200&view=docs#/component/cells-generic-dp">cells-generic-dp documentation in Cells Catalog</a>.</p>
+<pre><code class="lang-html"><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"import"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"../../components/cells-generic-dp/cells-generic-dp.html"</span><span class="tag">&gt;</span><span class="pln">
+
+  </span><span class="tag">&lt;dom-module</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"forex-dm"</span><span class="tag">&gt;</span><span class="pln">
+
+    </span><span class="tag">&lt;template&gt;</span><span class="pln">
+      </span><span class="tag">&lt;cells-generic-dp</span><span class="pln">
+        </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"forexDP"</span><span class="pln">
+        </span><span class="atn">host</span><span class="pun">=</span><span class="atv">"https://any-api.com:3010"</span><span class="pln">
+        </span><span class="atn">path</span><span class="pun">=</span><span class="atv">"https://api.fixer.io/latest?base=EUR&amp;symbols=USD"</span><span class="pln">
+        </span><span class="atn">method</span><span class="pun">=</span><span class="atv">"GET"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;/cells-generic-dp&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/template&gt;</span><span class="pln">
+  </span></code></pre>
+  <!--
+    <p class="border-1">
+      <img style="width: 80%;" src="images/forex-dm-template.png"/>
+      <br/>
+    </p>
+  -->
+    <p>For this element, the template is really simple because isn't a visual element.</p>
+    <p>Now, let's going with the logic of the component:</p>
+<pre><code class="lang-html"><span class="pln">
+  </span><span class="tag">&lt;script&gt;</span><span class="pln">
+    </span><span class="com">// Define the element's API using an ES2015 class</span><span class="pln">
+    </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">ForexDM</span><span class="pln"> extends </span><span class="typ">Polymer</span><span class="pun">.</span><span class="typ">Element</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">get</span><span class="pln"> is</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'forex-dm'</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+      </span><span class="com">// Declare properties for the element's public API</span><span class="pln">
+      </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">get</span><span class="pln"> properties</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          currencyFromSelected</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            type</span><span class="pun">:</span><span class="pln"> </span><span class="typ">String</span><span class="pun">,</span><span class="pln">
+            notify</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pln">
+          </span><span class="pun">},</span><span class="pln">
+          currencyToSelected</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            type</span><span class="pun">:</span><span class="pln"> </span><span class="typ">String</span><span class="pun">,</span><span class="pln">
+            notify</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pln">
+          </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">};</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      ready</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        super</span><span class="pun">.</span><span class="pln">ready</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'request-success'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">_onRequestOk</span><span class="pun">);</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">addEventListener</span><span class="pun">(</span><span class="str">'request-error'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">_onRequestError</span><span class="pun">);</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      getCurrent</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyFromSelected </span><span class="pun">=</span><span class="pln"> </span><span class="str">'USD'</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyToSelected </span><span class="pun">=</span><span class="pln"> </span><span class="str">'EUR'</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">var</span><span class="pln"> path </span><span class="pun">=</span><span class="pln"> </span><span class="str">'https://api.fixer.io/latest?base='</span><span class="pun">+</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyFromSelected </span><span class="pun">+</span><span class="pln"> </span><span class="str">'&amp;symbols='</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyToSelected</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">$</span><span class="pun">.</span><span class="pln">forexDP</span><span class="pun">.</span><span class="pln">path </span><span class="pun">=</span><span class="pln"> path</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">$</span><span class="pun">.</span><span class="pln">forexDP</span><span class="pun">.</span><span class="pln">generateRequest</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">dispatchEvent</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">CustomEvent</span><span class="pun">(</span><span class="str">'forex-request-start'</span><span class="pun">));</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      </span><span class="com">// Callback del evento currency-from-changed-event lanzado en foreign-exchange al cambiar el select currencyFrom</span><span class="pln">
+      currencyFromSelectedMethod</span><span class="pun">(</span><span class="pln">data</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyFromSelected </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">.</span><span class="pln">title</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">_getExchange</span><span class="pun">();</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      </span><span class="com">// Callback del evento currency-to-changed-event lanzado en foreign-exchange al cambiar el select currencyTo</span><span class="pln">
+      currencyToSelectedMethod</span><span class="pun">(</span><span class="pln">data</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyToSelected </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">.</span><span class="pln">title</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">_getExchange</span><span class="pun">();</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      _getExchange</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">typeof</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyFromSelected </span><span class="pun">==</span><span class="pln"> </span><span class="str">'undefined'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyFromSelected </span><span class="pun">=</span><span class="pln"> </span><span class="str">'USD'</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">typeof</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyToSelected </span><span class="pun">==</span><span class="pln"> </span><span class="str">'undefined'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyToSelected </span><span class="pun">=</span><span class="pln"> </span><span class="str">'EUR'</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+        </span><span class="kwd">var</span><span class="pln"> path </span><span class="pun">=</span><span class="pln"> </span><span class="str">'https://api.fixer.io/latest?base='</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyFromSelected </span><span class="pun">+</span><span class="pln"> </span><span class="str">'&amp;symbols='</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">currencyToSelected</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">$</span><span class="pun">.</span><span class="pln">forexDP</span><span class="pun">.</span><span class="pln">path </span><span class="pun">=</span><span class="pln"> path
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">$</span><span class="pun">.</span><span class="pln">forexDP</span><span class="pun">.</span><span class="pln">generateRequest</span><span class="pun">();</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">dispatchEvent</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">CustomEvent</span><span class="pun">(</span><span class="str">'forex-request-start'</span><span class="pun">));</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      _onRequestOk</span><span class="pun">(</span><span class="pln">evt</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">let</span><span class="pln"> data </span><span class="pun">=</span><span class="pln"> evt</span><span class="pun">.</span><span class="pln">detail</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">var</span><span class="pln"> rate </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+        </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">var</span><span class="pln"> divisa in data</span><span class="pun">.</span><span class="pln">rates</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          rate </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">.</span><span class="pln">rates</span><span class="pun">[</span><span class="pln">divisa</span><span class="pun">];</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+        </span><span class="com">// Este evento lo captura el componente exchange-result y ejecuta calculateExchangeByRate</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">dispatchEvent</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">CustomEvent</span><span class="pun">(</span><span class="str">'forex-request-ok'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">detail</span><span class="pun">:</span><span class="pln">data</span><span class="pun">}));</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      _onRequestError</span><span class="pun">(</span><span class="pln">err</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">dispatchEvent</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">CustomEvent</span><span class="pun">(</span><span class="str">'forex-request-error'</span><span class="pun">));</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="com">// Register the custom element with the browser</span><span class="pln">
+    customElements</span><span class="pun">.</span><span class="pln">define</span><span class="pun">(</span><span class="typ">ForexDM</span><span class="pun">.</span><span class="pln">is</span><span class="pun">,</span><span class="pln"> </span><span class="typ">ForexDM</span><span class="pun">);</span><span class="pln">
+  </span><span class="tag">&lt;/script&gt;</span><span class="pln">
+</span><span class="tag">&lt;/dom-module&gt;</span></code></pre>
+<!--
+    <p class="border-1">
+      <img style="width: 100%;" src="images/forex-dm-script.png"/>
+      <br/>
+    </p>
+  -->
+    <p>In this script we only define two properties, <strong>currencyFromSelected</strong> and <strong>currencyToSelected</strong>.</p>
+    <p>In the "ready()" function we initialize the component. We can call first to super.ready() because we want to use the parent component methods and attributes.</p>
+    <p>Next in this function we initiate listeners to detect success and errors of api calls, and launch functions <strong>_onRequestOk()</strong> and <strong>_onRequestError()</strong> for both events.</p>
+    <p>We are going to use the <strong>getCurrent()</strong> function to launch the first api call with the currencies by default.</p>
+    <p>
+      Next we define two callbacks, <strong>currencyFromSelectedMethod(data)</strong> and <strong>currencyToSelectedMethod(data)</strong> that <strong>will be called from foreign-exchange element</strong>, who will be launched when selects changes,
+      updating the <strong>currencyFromSelected</strong> and <strong>currencyToSelected</strong> properties of this element.
+      Every function get the data.title information (currency symbol), that is necessary to make every api call.
+    </p>
+    <p>After get the currency symbols, allways launch the method <strong>_getExchange()</strong>, who launch the api call. Once the call is completed correctly, the method <strong>_onRequestOk()</strong>
+      is fired getting the rate of the result and communicating this to the <strong>exchange-result</strong> component, who will calculate the result.</p>
+    <br/>
+    <h3 class="h2-bullet" id="Setting-output">Adding this new element to our page</h3>
+    <p>
+      At last, we set our element configuration in the login.json file, adding this to components array.
+    </p>
+<pre><code class="lang-json"><span class="pun">{</span><span class="pln">
+  </span><span class="str">"zone"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"app__main"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"familyPath"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"../elements/forex-dm"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"tag"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"forex-dm"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"properties"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"cellsConnections"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="str">"in"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="str">"__bridge_page_login"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="str">"bind"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"getCurrent"</span><span class="pln">
+        </span><span class="pun">},</span><span class="pln">
+        </span><span class="str">"currency-from-channel"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="str">"bind"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"currencyFromSelectedMethod"</span><span class="pln">
+        </span><span class="pun">},</span><span class="pln">
+        </span><span class="str">"currency-to-channel"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="str">"bind"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"currencyToSelectedMethod"</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+      </span><span class="pun">},</span><span class="pln">
+      </span><span class="str">"out"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="str">"ch_request_start"</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="str">"bind"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"forex-request-start"</span><span class="pln">
+        </span><span class="pun">},</span><span class="pln">
+        </span><span class="str">"ch_request_ok"</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="str">"bind"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"forex-request-ok"</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<!--
+    <p class="border-1">
+      <img style="max-width: 50%;" src="images/forex-dm-configuration.png"/>
+    </p>
+  -->
+    <p>In properties, this element is listening (in) the "__bridge_page_login" channel, who executed the <strong>getCurrent()</strong> when the page is ready and listen too the <strong>currency-from-channel</strong> and <strong>currency-to-channel</strong> to receive the currencies changes, by executing that callbacks.</p>
+    <p>This element <strong>forex-dm</strong> will dispatch two channels <strong>when the api request starts ch_request_start</strong> and <strong>when the api request finish ch_request_ok</strong>.</p>
+    <h3 class="h2-bullet" id="final-result">Getting the final exchange result</h3>
+    <p>The exchange-result component now must listen changes from two components, so we change the login.json:</p>
+    <pre><code class="lang-json"><span class="pun">{</span><span class="pln">
+  </span><span class="str">"zone"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"app__main"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"UI"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"familyPath"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"../elements/exchange-result"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"tag"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"exchange-result"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"properties"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"cellsConnections"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="str">"in"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="str">"my-amount-channel"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="str">"bind"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"calculateExchangeByRate"</span><span class="pln">
+        </span><span class="pun">},</span><span class="pln">
+        </span><span class="str">"ch_request_ok"</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="str">"bind"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"calculateExchangeByRate"</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+    <p>Finally, we will change the final function to calculate exchange <strong>calculateExchangeByRate(data)</strong> in the <strong>exchange-result element</strong>:</p>
+<pre><code class="lang-html"><span class="pln">
+    calculateExchangeByRate</span><span class="pun">(</span><span class="pln">data</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="kwd">var</span><span class="pln"> decimales </span><span class="pun">=</span><span class="pln"> </span><span class="lit">5</span><span class="pun">;</span><span class="pln">
+      </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">data</span><span class="pun">.</span><span class="pln">base</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">base </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">.</span><span class="pln">base</span><span class="pun">;</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      </span><span class="kwd">var</span><span class="pln"> iguales </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+
+      </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">typeof</span><span class="pln"> data </span><span class="pun">===</span><span class="pln"> </span><span class="str">'object'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Object</span><span class="pun">.</span><span class="pln">keys</span><span class="pun">(</span><span class="pln">data</span><span class="pun">.</span><span class="pln">rates</span><span class="pun">).</span><span class="pln">length </span><span class="pun">==</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          iguales </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+          </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">rate </span><span class="pun">=</span><span class="pln"> </span><span class="lit">1</span><span class="pun">;</span><span class="pln">
+          </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">divisa </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">base</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">var</span><span class="pln"> divisa in data</span><span class="pun">.</span><span class="pln">rates</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">rate </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">.</span><span class="pln">rates</span><span class="pun">[</span><span class="pln">divisa</span><span class="pun">];</span><span class="pln">
+            </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">divisa </span><span class="pun">=</span><span class="pln"> divisa</span><span class="pun">;</span><span class="pln">
+          </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(!</span><span class="pln">isNaN</span><span class="pun">(</span><span class="pln">data</span><span class="pun">))</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">amount </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">amount </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(!</span><span class="pln">isNaN</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">amount</span><span class="pun">))</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">iguales</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">result </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">round</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">amount</span><span class="pun">,</span><span class="pln"> decimales</span><span class="pun">)</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">" "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">divisa</span><span class="pun">;</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+          </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">amount </span><span class="pun">&amp;&amp;</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">rate</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">result </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">round</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">.</span><span class="pln">amount </span><span class="pun">*</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">rate</span><span class="pun">,</span><span class="pln"> decimales</span><span class="pun">)</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">" "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">divisa</span><span class="pun">;</span><span class="pln">
+          </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">result </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="str">" "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">divisa</span><span class="pun">;</span><span class="pln">
+          </span><span class="pun">}</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">result</span><span class="pun">(</span><span class="str">'Valor no válido.'</span><span class="pun">);</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+
+      </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">result</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span></code></pre>
+<!--
+    <p class="border-1">
+      <img style="max-width: 80%;" src="images/exchange-result-final-exchange.png"/>
+    </p>
+-->
+    <p>This function will receibe any change from <strong>"my-amount" element</strong> and <strong>"forex-dm" element</strong> and will calculate the current exchange rate automatically.</p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="sample-code">Get the sample code</h2></span>
+    <p>You can either download all the sample code to your computer:</p>
+    <p>
+      <a href="images/forex.tar.gz" target="_blank">
+        <paper-button class="colored x-scope paper-button-0" raised="" role="button" tabindex="0" animated="" aria-disabled="false" elevation="1">
+          <iron-icon icon="file-download" class="x-scope iron-icon-0">
+            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" class="style-scope iron-icon" style="pointer-events: none; display: block; width: 100%; height: 100%;"><g class="style-scope iron-icon"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" class="style-scope iron-icon"></path></g></svg>
+          </iron-icon>Download Zip<paper-ripple class="style-scope paper-button">
+          <div id="background" class="style-scope paper-ripple"></div>
+          <div id="waves" class="style-scope paper-ripple"></div>
+        </paper-ripple>
+        </paper-button>
+      </a>
+    </p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="congrats">Congratulations!</h2></span>
+    <p><strong>You've finished this codelab!</strong></p>
+    <p>At this point you've learned:</p>
+    <ul>
+      <li>How setting cells environment</li>
+      <li>Analyze your application components and communication between they</li>
+      <li>how to set your infraestructure project and how to use continuous integration</li>
+      <li>Create a cells base application with Cells Wizard</li>
+      <li>Create the application framework</li>
+      <li>Create a fixed exchange application</li>
+      <li>Create a dynamic exchange application getting the current exchange rate from a API.</li>
+    </ul>
+    <br/>
+    <p><h3>References:</h3></p>
+    <p>
+    <ul>
+      <li>
+        Documentation
+        <ul>
+          <li><a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/index.html">BBVA Ether Platform - What is CELLS?</a></li>
+          <li><a target="_blank" href="http://bbva-moodle.appspot.com/course/index.php?categoryid=5">BBVA Ether Moodle - Cells Training</a></li>
+          <li><a target="_blank" href="https://globaldevtools.bbva.com/platform_docs/">ETHER</a></li>
+        </ul>
+      </li>
+      <li>
+        <a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/index.html">Cells Codelabs</a>
+        <ul>
+          <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-environment/index.html#0">Codelab "Prepare your Cells environment"</a></li>
+          <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-app-first-steps/index.html">Cells First App</a></li>
+          <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-continuous-integration/index.html">Continuous Integration</a></li>
+        </ul>
+      </li>
+      <li>
+        Communities
+        <ul>
+          <li><a target="_blank" href="https://cellsjs.slack.com/messages/C09T2GJSX/details/">cellsjs.slack</a></li>
+          <li><a target="_blank" href="https://plus.google.com/communities/109489428539696676001">Cells Google+</a></li>
+          <li><a target="_blank" href="https://bbva-askbot.appspot.com/">Ask Bot</a></li>
+          <li><a target="_blank" href="https://bbva-askbot.appspot.com/questions/scope:all/sort:activity-desc/tags:Cells/page:1/">Ask Bot Cells</a></li>
+        </ul>
+      </li>
+    </ul>
+    </p>
+  </div>
+  <div>
+
+

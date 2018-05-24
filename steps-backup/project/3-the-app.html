@@ -1,0 +1,146 @@
+<style>
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-2 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 5px 0;
+    font-size: 30px;
+  }
+
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-4 {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-4 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    padding: 5px 5px;
+    font-size: 14px;
+  }
+
+  .h2-bullet {
+    display:inline;
+  }
+
+  .cells-bullet {
+    width: 2.5% !important;
+    vertical-align: unset !important;
+    margin-right: 4px;
+  }
+
+  .horizontal-center {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .strong {
+    font-weight: bold;
+  }
+
+  .border-1 {
+    border: 1px solid #cccccc;
+  }
+</style>
+<template is="dom-bind">
+  <div slot="markdown-html">
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="overview">The FOREX Application</h2></span>
+    <p>We will develop and deploy a basic web application using Cells Bridge and Cells components to get foreign exchange.</p>
+    <p>The project is divided into three sections</p>
+    <p>
+      <ol>
+        <li>
+          <strong>Framework</strong>: Create the framework of the application,
+          using <a target="_blank" href="http://bbva-files.s3.amazonaws.com/cells/bbva-catalog/index.html#/elements/cells-template-zones?v=1.7.0">cells-template-zones</a> component.
+          <br/>
+          The header will have a title with the Application name.
+        </li>
+        <li>
+          <strong>Fixed Currency Converter</strong>: The Application will exchange automatically a given amount of Dollars to Euros with a fixed and ficticious exchange rate, established by code.
+        </li>
+        <li>
+          <strong>Dynamic Currency Converter</strong>: The Application will obtain the today exchange rate trough the <a target="_blank" href="http://fixer.io/">API Fixer.io</a>
+          of two currencies selected with drop down inputs and will obtain the real exchange of the given amount.
+        </li>
+        <li>
+          <strong>Deploy</strong>: The Application will be deployed using <a target="_blank" href="https://globaldevtools.bbva.com/graas/beapp/">the Beapp tool</a>,
+          using git & git flow tools by making pull requests to your projects on BBVA Bitbucket. The Application will be automatically deployed using Ether Continuous Integration.
+        </li>
+        <li><strong>Documentation</strong>: You must deliver a complete documentation of your projects.</li>
+      </ol>
+    </p>
+    <p>
+      Example Screenshot:
+      <br/>
+      <img style="border: 1px solid #444444" src="images/forex.png"/>
+      <br/>
+    </p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="think-in-components">Think in components</h2></span>
+    <p>A Cells application is based on web components and the interactions among these components. So that, to create an application you should:</p>
+    <ul>
+      <li>Identify which pieces are components</li>
+      <li>Think how should the components interact with other components</li>
+    </ul>
+    <p>For this application will use:</p>
+    <div class="grid-container-2">
+      <div class="item1"><pre style="margin: 0px;"><code><span class="tag">&lt;cells-template-zones</span><span class="tag">&gt;</span></pre></code></div>
+      <div class="item2" style="vertical-align: text-top;">layout of the visual components. Installed by default.</div>
+
+      <div class="item1"><pre style="margin: 0px;"><code><span class="tag">&lt;cells-component-app-header</span><span class="tag">&gt;</span></code></pre></div>
+      <div class="item2">Header for our application</div>
+
+      <div class="item1"><pre style="margin: 0px;"><code><span class="tag">&lt;cells-grid-template</span><span class="tag">&gt;</span></code></pre></div>
+      <div class="item2">Grid template to distribute our web components in every page.</div>
+
+      <div class="item1"><pre style="margin: 0px;"><code><span class="tag">&lt;cells-select</span><span class="tag">&gt;</span></code></pre></div>
+      <div class="item2">Drop-down component</div>
+
+      <div class="item1"><pre style="margin: 0px;"><code><span class="tag">&lt;cells-generic-dp</span><span class="tag">&gt;</span></code></pre></div>
+      <div class="item2">Generic Data Manager request the public REST API and retrieve data</div>
+    </div>
+    <aside class="info">
+      ⚠️ You should always try to reuse existing web components. Look for them in Cells Component Catalag or at webcomponents.org.
+    </aside>
+    <aside class="info">
+      👉🏼 Remember this mantra: <strong>Be lazy, do less!</strong>
+    </aside>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="component-comunication">Components comunication</h2></span>
+    <p>The components in our application will send messages between they. There are components that produce events and communicate that information (out),
+      and there are another components that are listening and receives information (in) from another components
+    </p>
+    <p>
+      Communication esqueme:
+      <br/>
+      <img style="border: 1px solid #444444" src="images/comunicacion-entre-componentes-forex.png"/>
+      <br/>
+    </p>
+    <p>We must declare each component or element who we want to use in our application in the every page json file inside <strong>composerMocksTpl/</strong> folder</p>
+    <p>Inside the propierties of every component or element, we declare the cellsConnections property, and inside we set the "in" and the "out" properties.</p>
+    <p>Don't worry for now, in the following sections we will explain the different communications between each of the components and / or elements of the application</p>
+  </div>
+  <p><h3>References:</h3></p>
+  <p>
+  <ul>
+    <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-environment/index.html#0">Codelab "Prepare your Cells environment"</a></li>
+    <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-app-first-steps/index.html">Cells First App</a></li>
+    <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-continuous-integration/index.html">Continuous Integration</a></li>
+    <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/index.html">Cells Codelabs</a></li>
+    <li><a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/index.html">BBVA Ether Platform - What is CELLS?</a></li>
+    <li><a target="_blank" href="http://bbva-moodle.appspot.com/course/index.php?categoryid=5">BBVA Ether Moodle - Cells Training</a></li>
+    <li><a target="_blank" href="https://globaldevtools.bbva.com/platform_docs/">ETHER</a></li>
+  </ul>
+  </p>
+</template>
+

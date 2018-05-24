@@ -1,0 +1,211 @@
+@font-face {
+  font-family: "Benton Sans";
+  src: url(https://bbva-files.s3.amazonaws.com/cells/assets/coronita/fonts/benton/BentonSansBBVA-Book.woff2) format("woff2"),
+       url(https://bbva-files.s3.amazonaws.com/cells/assets/coronita/fonts/benton/BentonSansBBVA-Book.woff) format("woff");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Benton Sans";
+  src: url(https://bbva-files.s3.amazonaws.com/cells/assets/coronita/fonts/benton/BentonSansBBVA-Light.woff2) format("woff2"),
+       url(https://bbva-files.s3.amazonaws.com/cells/assets/coronita/fonts/benton/BentonSansBBVA-Light.woff) format("woff");
+  font-style: normal;
+  font-weight: 300;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+  border: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  color: #4C4C4C;
+  background-color: #f2f3f7;
+  font-family: Benton Sans, sans-serif;
+}
+
+.header {
+  background-color: #004481;
+  color: #fff;
+}
+
+.header .wrapper {
+  min-height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search {
+  flex: 1;
+  margin-left: -20px;
+}
+
+.header h1 {
+  display: flex;
+  font-weight: 300;
+  font-size: 20px;
+  margin: 0;
+}
+
+@media (max-width: 37.5em) {
+  .header .wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header h1 {
+    margin: 16px 0;
+  }
+  .search {
+    width: 100%;
+    margin-bottom: 16px;
+    margin-left: 0;
+    --input-not-focused-width: 100%;
+  }
+}
+
+.header iron-icon {
+  margin-right: 10px;
+  width: 28px;
+}
+
+.jumbo {
+  background-color: #fff;
+  padding: 40px 0;
+  border-bottom: 1px solid #dadadc;
+}
+
+.jumbo h2 {
+  font-size: 32px;
+  margin-bottom: 0.5em;
+  font-weight: 300;
+}
+
+.jumbo p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.wrapper {
+  max-width: 1056px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 60px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 250px;
+  grid-gap: 16px;
+}
+
+.grid-item:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.grid-item {
+  flex: 1 1 250px;
+  background-color: #fff;
+  border: 1px solid #ecedf1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-top: 0;
+}
+
+.grid-item > div {
+  padding: 20px;
+}
+
+.grid-item .meta {
+  display: flex;
+  justify-content: space-between;
+}
+
+.meta > iron-icon {
+  color: #fff;
+}
+
+.grid-item .content {
+  flex: 1;
+}
+
+.grid-item .footer {
+  border-top: 1px solid #dadadc;
+}
+
+.duration {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  opacity: 0.6;
+}
+
+.duration iron-icon {
+  margin-right: 5px;
+}
+
+.grid-item .footer {
+  padding: 20px 20px 16px;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.updated {
+  font-size: 12px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 300;
+  margin: 0 0 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #004481;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.environmentold { background-color: #F35E61; }
+.components { background-color: #5AC4C4; }
+.apps { background-color: #237ABA; }
+.native { background-color: #48AE64; }
+
+.preparation { background-color: #66ccff; }
+.preparationlab { background-color: #66ccff; }
+.environment { background-color: #1ab2ff; }
+.environmentlab { background-color: #1ab2ff; }
+.training { background-color: #004466; }
+.traininglab { background-color: #004466; }
+.test { background-color: #adadeb;}

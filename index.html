@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BBVA Tech University - Specialized Cells</title>
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <link rel="stylesheet" href="styles.css">
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <script>
+    window.Polymer = {
+      dom: 'shadow',
+      lazyRegister: 'max',
+      useNativeCSSProperties: true
+    };
+  </script>
+  <link rel="import" href="bower_components/polymer/polymer.html">
+  <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+  <link rel="import" href="bower_components/iron-icon/iron-icon.html">
+  <link rel="import" href="icons.html">
+  <link rel="import" href="src/cells-codelabs-filter/cells-codelabs-filter.html">
+</head>
+<body>
+  <template is="dom-bind">
+    <iron-ajax
+      auto
+      url="cells-preparation.json"
+      last-response="{{preparation}}">
+    </iron-ajax>
+    <iron-ajax
+      auto
+      url="cells-environment.json"
+      last-response="{{environment}}">
+    </iron-ajax>
+    <iron-ajax
+      auto
+      url="cells-training.json"
+      last-response="{{training}}">
+    </iron-ajax>
+    <iron-ajax
+      auto
+      url="cells-project.json"
+      last-response="{{project}}">
+    </iron-ajax>
+    <div class="header" role="banner">
+      <div class="wrapper">
+        <h1>
+          <img src="images/logo-tech-u-white.png" width="10%" height="10%" aria-hidden="true"/>
+          <span style="display:inline-block; width: 10px;"></span>
+          <iron-icon src="cells.svg" aria-hidden="true"></iron-icon>
+          <span>Specialized Cells</span>
+        </h1>
+        <!--<cells-codelabs-filter class="search"
+          source="[[preparation.modules]]"
+          filters='["name","kind","level","tags"]'
+          result="{{modules}}"
+          placeholder="Filter">
+        </cells-codelabs-filter>-->
+      </div>
+    </div>
+
+    <div role="main">
+      <div class="jumbo">
+        <div class="wrapper">
+          <h2>Welcome to BBVA Tech University - Cells Specialized</h2>
+          <p>Cells Specialized program is a series of tutorials and exercises to learn about Cells and related technologies</p>
+          <p>After finishing this training you will be able to design, develop, and test front-end solutions based on Cells</p>
+          <p> and at the end of the course you will have shown that you are able to start doing it in projects on the Ether platform</p>
+          <br/>
+          <div id="feedback">Did you find a mistake or an issue? <a target="_blank" href="https://goo.gl/forms/vPSNUqDgFRgyDrm93">Please fill a bug</a>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper">
+        <br/>
+        <h2>Previous Preparation</h2>
+        <h3>Complete these modules in order to be prepared for the course. You could go directly to the test if you are already prepared</h3>
+      </div>
+      <ul class="grid wrapper">
+        <template is="dom-repeat" items="[[preparation.modules]]">
+          <li class="grid-item">
+            <div class$="meta [[item.kind]]">
+              <iron-icon icon="[[item.kind]]" aria-label$="[[item.kind]]"></iron-icon>
+              <div hidden$=[[!item.timing]] class="duration">
+                <iron-icon icon="time"></iron-icon>
+                <span><span class="sr-only">Duration </span>[[item.duration]]</span>
+              </div>
+            </div>
+            <div class="content">
+              <h2><a href$="[[item.link]]" target="_blank">[[item.name]]</a></h2>
+              <span>[[item.description]]</span>
+            </div>
+            <div class="footer">
+              <div class="updated">Updated: [[item.updated]]</div>
+            </div>
+          </li>
+        </template>
+      </ul>
+      <hr/>
+      <div class="wrapper">
+        <br/>
+        <h2>Environment Installation</h2>
+        <h3>Configure your environment before start developing</h3>
+      </div>
+      <ul class="grid wrapper">
+        <template is="dom-repeat" items="[[environment.modules]]">
+          <li class="grid-item">
+            <div class$="meta [[item.kind]]">
+              <iron-icon icon="[[item.kind]]" aria-label$="[[item.kind]]"></iron-icon>
+              <div hidden$=[[!item.timing]] class="duration">
+                <iron-icon icon="time"></iron-icon>
+                <span><span class="sr-only">Duration </span>[[item.duration]]</span>
+              </div>
+            </div>
+            <div class="content">
+              <h2><a href$="[[item.link]]" target="_blank">[[item.name]]</a></h2>
+              <span>[[item.description]]</span>
+            </div>
+            <div class="footer">
+              <div class="updated">Updated: [[item.updated]]</div>
+            </div>
+          </li>
+        </template>
+      </ul>
+      <hr/>
+      <div class="wrapper">
+        <br/>
+        <h2>Course Contents</h2>
+        <h3>Follow the course contents to design, develop, and test front-end solutions based on Cells</h3>
+      </div>
+      <ul class="grid wrapper">
+        <template is="dom-repeat" items="[[training.modules]]">
+          <li class="grid-item">
+            <div class$="meta [[item.kind]]">
+              <iron-icon icon="[[item.kind]]" aria-label$="[[item.kind]]"></iron-icon>
+              <div hidden$=[[!item.timing]] class="duration">
+                <iron-icon icon="time"></iron-icon>
+                <span><span class="sr-only">Duration </span>[[item.duration]]</span>
+              </div>
+            </div>
+            <div class="content">
+              <h2><a href$="[[item.link]]" target="_blank">[[item.name]]</a></h2>
+              <span>[[item.description]]</span>
+            </div>
+            <div class="footer">
+              <div class="updated">Updated: [[item.updated]]</div>
+            </div>
+          </li>
+        </template>
+      </ul>
+      <hr/>
+      <div class="wrapper">
+        <br/>
+        <h2>Final Project & Test</h2>
+        <h3>Congratulations, you are almost done! Now you will have to show that you are able to start doing it in projects on the Ether platform. Complete your project and make the final test</h3>
+        <h3></h3>
+      </div>
+      <ul class="grid wrapper">
+        <template is="dom-repeat" items="[[project.modules]]">
+          <li class="grid-item">
+            <div class$="meta [[item.kind]]">
+              <iron-icon icon="[[item.kind]]" aria-label$="[[item.kind]]"></iron-icon>
+              <div hidden$=[[!item.timing]] class="duration">
+                <iron-icon icon="time"></iron-icon>
+                <span><span class="sr-only">Duration </span>[[item.duration]]</span>
+              </div>
+            </div>
+            <div class="content">
+              <h2><a href$="[[item.link]]" target="_blank">[[item.name]]</a></h2>
+              <span>[[item.description]]</span>
+            </div>
+            <div class="footer">
+              <div class="updated">Updated: [[item.updated]]</div>
+            </div>
+          </li>
+        </template>
+      </ul>
+      <div class="wrapper">
+        <h4 text-align="right">Contents built by BBVA Cells team</h4>
+    </div>
+
+    </div>
+      <div class="jumbo">
+        <div class="wrapper">
+          <h3>Do you have any doubt about the program contents?</h3>
+          <p><img src="images/logo-cells-catalogo.png" width="10%" height="10%" alt="Cells"> We invite to join to Cells Google+ Community and look for your peers' previous questions</p>
+          <br/><br/>
+          <p><img src="images/bbva-askbot.png" width="10%" height="10%"></img> If you have questions about Cells, how to build new solutions, how to solve issues you can use BBVA Askbot program</p>
+          <br/><br/>
+          <p><img src="images/logo-tech-u-color.png" width="10%" height="10%"></img>  For additional questions, email the tutor of the program tutor.techuniversity@bbva.com</p>
+        </div>
+      </div>
+    </template>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Project</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="shortcut icon" href="images/icon.png">
+  <script>
+    window.Polymer = {
+      dom: 'shadow',
+      lazyRegister: 'max',
+      useNativeCSSProperties: true
+    };
+  </script>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto+Mono:400,700">
+  <link rel="import" href="bower_components/cells-codelab-components/google-codelab-elements.html">
+  <link rel="import" href="bower_components/imported-template/imported-template.html">
+  <link rel="import" href="bower_components/marked-element/marked-element.html">
+  <link rel="import" href="bower_components/custom-markdown-tags/custom-markdown-tags.html">
+  <style is="custom-style" include="coronita-styles aside-styles"></style>
+  <style is="custom-style">
+    .custom-step [slot="markdown-html"] img[alt=comic-today]  {
+      width: 40%;
+      margin-left: 30%;
+    }
+    .custom-step [slot="markdown-html"] img[alt=app-structure]  {
+      width: 40%;
+      margin-left: 30%;
+    }
+  </style>
+</head>
+<body unresolved>
+  <google-codelab title="Final Project" feedback-link="https://goo.gl/forms/vlAkWRtsoeMavgTv2" environment="web" last-updated="2018-04-05">
+    <google-codelab-step label="Overview" duration="10">
+      <imported-template href="steps/project/1-overview.html"></imported-template>
+    </google-codelab-step>
+    <google-codelab-step label="Setting environment" duration="20">
+      <imported-template href="steps/project/2-environment.html"></imported-template>
+    </google-codelab-step>
+    <google-codelab-step label="The Application" duration="5">
+      <imported-template href="steps/project/3-the-app.html"></imported-template>
+    </google-codelab-step>
+    <google-codelab-step label="The Infraestructure" duration="10">
+      <imported-template href="steps/project/4-infraestructure.html"></imported-template>
+    </google-codelab-step>
+    <google-codelab-step label="The Cells Wizard" duration="55">
+      <imported-template href="steps/project/5-cells-wizard.html"></imported-template>
+    </google-codelab-step>
+    <google-codelab-step label="Application Framework" duration="5">
+      <imported-template href="steps/project/6-framework.html"></imported-template>
+    </google-codelab-step>
+    <google-codelab-step label="Fixed Exchange" duration="15">
+      <imported-template href="steps/project/7-fixed-exchange.html"></imported-template>
+    </google-codelab-step>
+    <google-codelab-step label="Dynamic Exchange" duration="45">
+      <imported-template href="steps/project/8-dynamic-exchange.html"></imported-template>
+    </google-codelab-step>
+<!--    <google-codelab-step label="Readme" duration="6">
+      <marked-element>
+        <div slot="markdown-html"></div>
+        <script type="text/markdown" src="steps/project/readme.md"></script>
+      </marked-element>
+    </google-codelab-step>-->
+    <!--<google-codelab-step label="Snippet" duration="8">
+      <marked-element>
+        <div slot="markdown-html"></div>
+        <script type="text/markdown" src="steps/project/snippet.md"></script>
+      </marked-element>
+    </google-codelab-step>-->
+  </google-codelab>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function() {
+      document.querySelectorAll('marked-element').forEach(item => item.renderer = CustomFormatter.formatter.bind(CustomFormatter));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<style>
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-2 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 5px 0;
+    font-size: 30px;
+  }
+
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-4 {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-4 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    padding: 5px 5px;
+    font-size: 14px;
+  }
+
+  .h2-bullet {
+    display:inline;
+  }
+
+  .cells-bullet {
+    width: 2.5% !important;
+    vertical-align: unset !important;
+    margin-right: 4px;
+  }
+
+  .horizontal-center {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .strong {
+    font-weight: bold;
+  }
+
+  .border-1 {
+    border: 1px solid #cccccc;
+  }
+</style>
+<template is="dom-bind">
+  <div slot="markdown-html">
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="overview">Overview</h2></span>
+    <p>We need a infraestructure to deploy our application. For a Web Application for example, we need:</p>
+    <ul>
+      <li>A Bitbucket where to upload our code.</li>
+      <li>A Jenkins where to deploy our appliation</li>
+      <li>A S3 bucket where our application.</li>
+    </ul>
+    <p>All these infraestructures will be created and managed by using the <a target="_blank" href="https://globaldevtools.bbva.com/graas/beapp/">BeApp Application (Dev Tools)</a> </p>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="beapp">BeApp Application (Dev Tools)</h2></span>
+    <p>
+      <a target="_blank" href="https://globaldevtools.bbva.com/graas/beapp/">
+        <img src="images/beapp.png"/>
+      </a>
+    </p>
+    <h3>P.A.CO Infraestructure:</h3>
+    <p>For our Project we will create a <strong>Product</strong>. For our Product, we can create one or more <strong>Applications</strong>, and we can create one or more <strong>Component</strong> on every Application </p>
+<!--    <p>
+      <a target="_blank" href="https://globaldevtools.bbva.com/graas/beapp/">
+        <img style="border: 1px solid #cccccc;" src="images/paco-beapp.png"/>
+      </a>
+    </p>
+    <p>
+      <a target="_blank" href="https://globaldevtools.bbva.com/graas/beapp/">
+        <img style="border: 1px solid #cccccc;" src="images/paco-beapp-2.png"/>
+      </a>
+    </p>-->
+    <h3>How to create our infraestructure:</h3>
+    <p>
+      <video class="horizontal-center" width="100%" controls>
+        <source src="images/beapp-full.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+    </p>
+    <p>Now you have a repository and a Jenkins to make deploys.</p>
+    <h3>First commit</h3>
+    <p>At this point, you have "ready to use" your project infraestructure.</p>
+    <p>
+      <img class="border-1" src="images/empty_repository_bitbucket.png"/>
+    </p>
+    <p>Now is a good moment to <strong>go next section</strong> and generate a base project code that we will can upload.</p>
+    <p>Once we have code to upload on a first commit, we will continue executing the list of commands indicated in <strong>"My code is ready to be pushed"</strong> on our BBVA Bitbucket repository.</p>
+  </div>
+  <p><h3>References:</h3></p>
+  <p>
+  <ul>
+    <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-environment/index.html#0">Codelab "Prepare your Cells environment"</a></li>
+    <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-app-first-steps/index.html">Cells First App</a></li>
+    <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-continuous-integration/index.html">Continuous Integration</a></li>
+    <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/index.html">Cells Codelabs</a></li>
+    <li><a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/index.html">BBVA Ether Platform - What is CELLS?</a></li>
+    <li><a target="_blank" href="http://bbva-moodle.appspot.com/course/index.php?categoryid=5">BBVA Ether Moodle - Cells Training</a></li>
+    <li><a target="_blank" href="https://globaldevtools.bbva.com/platform_docs/">ETHER</a></li>
+  </ul>
+  </p>
+</template>
+

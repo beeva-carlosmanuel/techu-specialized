@@ -1,0 +1,127 @@
+<dom-module id="aside-styles">
+  <template>
+    <style>
+      /**
+       * Styles for .warning, .notice and .tip come from style-style.html inside cells-codelabs-components
+       */
+      [slot="markdown-html"] aside.info {
+        color: #286a94;
+        background-color: #d8efff;
+        border-color: #3999d6 !important;
+      }
+
+      [slot="markdown-html"] aside br {
+        line-height: 2.5;
+      }
+    </style>
+  </template>
+</dom-module>
+
+<script>
+  (function() {
+    'use strict';
+
+    window.CustomFormatter = window.CustomFormatter || {};
+    window.CustomFormatter = {
+      customTags: {
+        asides: new RegExp(/\[\/*(warning|notice|tip|info)]/g),
+        embedCode: new RegExp(/\[\/*jsfiddle /g),
+        checkbox: new RegExp(/\[check]/)
+      },
+
+      /**
+       * Renders `<aside>` tags with different classes.
+       * To render an aside, wrap a markdown paragraph between the following tags:
+       *
+       * [alert]Your text[/alert] -> Renders a block with yellow background.
+       * [info]Your text[/info] -> Renders a block with blue background.
+       * [tip]Your text[/tip] -> Renders a block with green background.
+       */
+      _formatAside: function(found, str, regexp) {
+        return `
+          <aside class="${found[0].replace(/\W/g, '')}">
+            ${str.replace(regexp, '')}
+          </aside>`;
+      },
+
+      /**
+       * Renders `<iframe>` tags for JSFiddle code samples.
+       * To render a code sample use the custom tag [jsfiddle url=your-embed-url height=300]
+       */
+      _formatEmbedCode: function(str) {
+        const url = str.match(new RegExp(/url=\S*[^\]]/g))[0].split('url=')[1].replace(/&quot;/g, '');
+        const height = (str.match(new RegExp(/height=\S*[^\]]/g)) || ['height=300'])[0].split('height=')[1].replace(/&quot;/g, '');
+
+        return `
+          <iframe width="100%"
+            height="${height}"
+            src="${url}"
+            allowpaymentrequest allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        `;
+      },
+
+      _formatDownloadLink: function(href, title, text) {
+        const attrs = title ? `title="${title}"` : '';
+
+        return `
+          <paper-button class="colored" tabindex="-1">
+            <iron-icon icon="arrow-downward" aria-hidden="true"></iron-icon>
+            <a class="download-link" href="${href}" ${attrs}>${text}</a>
+          </paper-button>
+        `;
+      },
+
+      _formatCheckbox: function(str, regexp) {
+        return `
+          <li>
+            <paper-checkbox class="checklist-item">
+              <span>${str.replace(regexp, '')}</span>
+            </paper-checkbox>
+          </li>
+        `;
+      },
+
+      /**
+       * Custom renderer method: https://github.com/chjj/marked#renderer
+       */
+      formatter: function(renderer) {
+        renderer.paragraph = (str) => {
+          const aside = str.match(this.customTags.asides);
+          const embedCode = str.match(this.customTags.embedCode);
+
+          if (aside) {
+            return this._formatAside(aside, str, this.customTags.asides);
+          }
+
+          if (embedCode) {
+            return this._formatEmbedCode(str);
+          }
+
+          return `<p>${str}</p>`;
+        };
+
+        renderer.listitem = (str) => {
+          const check = str.match(this.customTags.checkbox);
+
+          if (check) {
+            return this._formatCheckbox(str, this.customTags.checkbox);
+          }
+
+          return `<li>${str}</li>`;
+        };
+
+        /**
+         * If a link contains the text "download" and its href ends with .zip,
+         * it will be rendered as a paper-button with green background and a dowonload icon.
+         */
+        renderer.link = (href, title, text) => {
+          const zip = href.match(/.zip$/);
+          const downloadTxt = text.match(/download/ig);
+          const attrs = title ? `title="${title}"` : '';
+
+          return zip && downloadTxt ? this._formatDownloadLink(href, title, text) : `<a href="${href}" ${attrs}>${text}</a>`;
+        };
+      }
+    };
+  }());
+</script>
