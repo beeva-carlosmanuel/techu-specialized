@@ -1,0 +1,10 @@
+{
+  "name": "cells-coronita-base-theme",
+  "version": "1.0.3",
+  "scripts": {
+    "build": "node tasks/generate-colors"
+  },
+  "devDependencies": {
+    "nunjucks": "^3.0.1"
+  }
+}

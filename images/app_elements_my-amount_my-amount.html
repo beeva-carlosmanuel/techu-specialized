@@ -1,0 +1,103 @@
+<dom-module id="my-amount">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 2em 0;
+        width: 30%;
+        margin: auto;
+        margin-bottom: 2rem;
+      }
+
+      label,
+      input {
+        display: block;
+      }
+
+      input {
+        font-family: var(--cells-fontDefault, sans-serif);
+        display: block;
+        cursor: cursor;
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        background-color: rgba(255,255,255, .5);
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+        border-bottom: solid 2px #9b9b9b;
+        font-size: 20px;
+        line-height: 1.14;
+        letter-spacing: 1px;
+        text-align: center;
+        color: #4a4a4a;
+        padding: 1em 0;
+        margin-bottom: .5rem;
+      }
+      input:focus{
+        outline: none;
+      }
+
+      label {
+        font-family: var(--cells-fontDefault, sans-serif);
+        color: #9b9b9b;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .text-align-center {
+        text-align: center;
+      }
+
+      .title {
+        font-family: var(--cells-fontDefault, sans-serif);
+        color: #666666;
+      }
+
+      button {
+        display: block;
+        margin: 1em 0;
+      }
+    </style>
+
+    <div class="cgt">
+      <div class="text-align-center cgt-col-xs-1 cgt-col-sm-8 cgt-col-md-6 cgt-col-lg-12">
+        <!--<h2 class="title">Be lazy, do less!</h2>-->
+        <h2 class="title">Cambio de divisas</h2>
+      </div>
+    </div>
+    <div class="cgt">
+      <div class="cgt-col-xs-1 cgt-col-sm-8 cgt-col-md-6 cgt-col-lg-12">
+        <input id="for-input" value="{{amount::input}}"/>
+        <label for="for-input">Introduce aquí la cantidad a cambiar</label>
+      </div>
+    </div>
+  </template>
+
+  <script>
+
+
+
+    // Define the element's API using an ES2015 class
+    class MyAmount extends Polymer.Element {
+
+      static get is() { return 'my-amount'; }
+
+      // Declare properties for the element's public API
+      static get properties() {
+        return {
+          amount: {
+            type: Number,
+            value: '1',
+            notify: true
+          }
+        }
+      }
+    }
+
+    customElements.define(MyAmount.is, MyAmount);
+
+
+  </script>
+
+</dom-module>

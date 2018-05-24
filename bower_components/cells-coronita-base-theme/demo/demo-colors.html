@@ -1,0 +1,120 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-ajax/iron-ajax.html">
+
+<dom-module id="demo-colors">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .list-unstyled {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .color-group {
+        margin-bottom: 30px;
+      }
+
+      .group-title {
+        max-width: 1195px;
+        font-weight: 500;
+        font-size: 16px;
+        margin: 0 auto 10px;
+      }
+
+      .demo-color__sample {
+        height: 3.75rem;
+      }
+
+      .demo-color__hex {
+        padding: 0.25rem 0;
+        font-size: 14px;
+      }
+
+      .input-code {
+        font: inherit;
+        padding: 5px;
+        width: 100%;
+        box-sizing: border-box;
+        border: 0;
+        border-bottom: 1px solid #ccc;
+        background-color: #fff;
+        font-size: 12px;
+        font-family: Roboto Mono, monaco, monospace;
+      }
+
+      .input-code:focus {
+        outline: none;
+        border-bottom-color: #02A5A5;
+      }
+
+      /**
+       * 1. fallback for browsers without Grid Layout support
+       * 2. grid-gap for browsers without Grid Layout support
+       * 3. reset margin for browsers with Grid Layout support
+       */
+      .grid {
+        display: flex; /* 1 */
+        flex-wrap: wrap; /* 1 */
+        max-width: 1195px;
+        box-sizing: border-box;
+        margin: auto auto 50px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        grid-gap: 24px;
+      }
+
+      .grid-item {
+        flex: 1 1 220px; /* 1 */
+        margin: 0 12px 24px; /* 2 */
+      }
+
+      @supports (display: grid) {
+        .grid-item {
+          margin: 0; /* 3 */
+        }
+      }
+    </style>
+
+    <iron-ajax
+      auto
+      url="{{colorsFile}}"
+      handle-as="json"
+      last-response="{{jsondata}}">
+    </iron-ajax>
+
+    <template is="dom-repeat" items="[[jsondata.colors]]">
+      <div class="color-group">
+        <template is="dom-if" if="[[!item.ignored]]">
+          <h2 class="group-title">[[item.groupName]]</h2>
+          <ul class="list-unstyled grid">
+            <template is="dom-repeat" items="[[item.colors]]">
+              <li class="grid-item">
+                <label>
+                  <div class="demo-color__hex">[[item.value]]</div>
+                  <div class="demo-color__sample" style$="background: [[item.value]];"></div>
+                  <input type="text" class="input-code" value="var([[item.name]], [[item.value]])" on-focus="_select" spellcheck="false">
+                </label>
+              </li>
+            </template>
+          </ul>
+        </template>
+      </div>
+    </template>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'demo-colors',
+      properties: {
+        colorsFile: String
+      },
+      _select: function(e) {
+        e.target.select();
+      }
+    });
+  </script>
+</dom-module>

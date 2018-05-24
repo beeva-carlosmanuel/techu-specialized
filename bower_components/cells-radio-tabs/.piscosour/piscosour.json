@@ -1,0 +1,14 @@
+{
+  "steps": {
+    "demo-tests": {
+      "params": {
+        "_skip": true
+      }
+    },
+    "check-theme": {
+      "params": {
+        "_skip": true
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+<style>
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-2 {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-2 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left !important;
+    padding: 5px 5px !important;
+    font-size: 12px !important;
+  }
+
+  /** https://www.w3schools.com/css/css_grid.asp **/
+  .grid-container-4 {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 2px;
+    background-color: #eeeeee;
+    padding: 2px;
+  }
+  .grid-container-4 > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    padding: 5px 5px;
+    font-size: 14px;
+  }
+
+  .h2-bullet {
+    display:inline;
+  }
+
+  .cells-bullet {
+    width: 2.5% !important;
+    vertical-align: unset !important;
+    margin-right: 4px;
+  }
+
+  .horizontal-center {
+    margin: 0 auto;
+    display: block;
+  }
+
+  .strong {
+    font-weight: bold;
+  }
+
+  .border-1 {
+    border: 1px solid #cccccc;
+  }
+</style>
+<template is="dom-bind">
+  <div slot="markdown-html">
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="overview">Cells CLI Application Wizard</h2></span>
+    <p>We can use <strong>Cells CLI tool</strong> to create our base application structure of files and directories in our local computer where we will work.</p>
+    <p>On a terminal console, go to your workspace directory, and launch the <strong>cells app:create</strong> command:</p>
+    <p>
+      <video class="horizontal-center" width="100%" controls>
+        <source src="images/cells-app-create-all.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+    </p>
+    <p>The command <strong>cells app:serve</strong> build and launch our application, and open a browser tab to show running our application in local.  </p>
+    <p>We just made the following steps:</p>
+    <div class="grid-container-2">
+      <div class="item1 strong">$> cells app:create</div>
+      <div class="item2">Using the cells app:create wizard we create the base application structure of files and directories.</div>
+      <div class="item1 strong">$> git init <br/> $> git flow init</div>
+      <div class="item2">Configuring git & git-flow</div>
+      <div class="item1 strong">Edit app/config/composer-mock-xxx.json</div>
+      <div class="item2">Configure the project's environments</div>
+      <div class="item1 strong">Edit Jenkinsfile</div>
+      <div class="item2">Configure <strong>piscoOpts</strong> by setting production environment (<strong>composer-mock-endpoint</strong>) for example and file and platform type (<strong>webapp</strong>). You can set one or more of </div>
+      <div class="item1 strong">
+        $> npm install <br/>
+        $> bower install --save cells-xxx-component<br/>
+        $> bower install
+      </div>
+      <div class="item2">Build & install all components you need for your application from <a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/bbva-catalog/index.html#/?v=1.7.0">Cells Catalog</a></div>
+      <div class="item1 strong">$> cells app:serve</div>
+      <div class="item2">Build & Launch App in local. It will open a new tab in your browser.</div>
+    </div>
+    <p>Here we have our first base application code working on local (empty application, but working!).</p>
+    <p>It's time to continue where we left off in the previous section: <strong>the first commit</strong></p>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="first-commit">The first commit</h2></span>
+    <p>
+      <video class="horizontal-center" width="100%" controls>
+        <source src="images/first-commit-full.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+    </p>
+    <p>
+      Now you have the first commit done. This commit isn't made by Continuous Integration, but all next commits you will make will be done
+      by using Continuous Integration with Jenkins.
+    </p>
+    <p>We have now branches in our repository and all the code already uploaded in the first commit.</p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="scan-folders">Jenkins - Scan Organization Folder</h2></span>
+    <p>
+      Jenkis must now scan the new Folders Organization (the new main branches created: master & develop).
+      This process is only launched once throughout the life cycle of our project, when the main branches of the project are created.
+      This is an automatic process, but it is launched automatically once a day.
+    </p>
+    <p>If you don't want to wait, you can launch this process manually, by clicking on the link <strong>Scan Organization Folder Now</strong> of our project in Jenkins:</p>
+    <p>
+      <img class="border-1" src="images/scan-branches.png"/>
+    </p>
+    <p>Once scanned, you can see the folders and their branches in Jenkins:</p>
+    <p>
+      <img class="border-1" src="images/jenkins-branches-scanned.png"/>
+    </p>
+    <br/>
+    <span><img class="cells-bullet" src='images/logo-cells.svg' /><h2 class="h2-bullet" id="continuous Integration">Continuous Integration</h2></span>
+    <p>
+      We will now make a couple of little changes in the code to start to use the continuous integration.
+      For now, simply we will make a feature by changing the .gitignore file to exclude all files we wont to upload, and the title tag of our application.
+    </p>
+    <ul>
+      <li>Starting from develop branch, first we create a git flow feature</li>
+      <li>We going to exclude of uploads the <strong>.idea/</strong> directory (temporal folder for webstorm) and the <strong>.tmp/ folder.</strong></li>
+      <li>We going to change the title of the main template in our project: <strong>app/tpls/index.tpl</strong></li>
+      <li>Build & Serve the application to check changes in local.</li>
+      <li>commit our changes and finish our feature.</li>
+      <li>When we push our develop branch, a pull request will be created.</li>
+      <li>Once accepted our pull request, a Jenkins Job with the process of deploy will be <strong>automatically created</strong>.</li>
+      <li>When the job is finished, Jenkins will send to us a email with the result.</li>
+    </ul>
+    <p>See the process in the next video:</p>
+    <p>
+      <video class="horizontal-center" width="100%" controls>
+        <source src="images/continuous-integration.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+    </p>
+    <p><h3>References:</h3></p>
+    <p>
+    <ul>
+      <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-environment/index.html#0">Codelab "Prepare your Cells environment"</a></li>
+      <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-app-first-steps/index.html">Cells First App</a></li>
+      <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/cells-continuous-integration/index.html">Continuous Integration</a></li>
+      <li><a target="_blank" href="https://bbva-files.s3.amazonaws.com/cells/codelabs/index.html">Cells Codelabs</a></li>
+      <li><a target="_blank" href="https://bbva-devplatform.appspot.com/en-us/developers/engines/cells/index.html">BBVA Ether Platform - What is CELLS?</a></li>
+      <li><a target="_blank" href="http://bbva-moodle.appspot.com/course/index.php?categoryid=5">BBVA Ether Moodle - Cells Training</a></li>
+      <li><a target="_blank" href="https://globaldevtools.bbva.com/platform_docs/">ETHER</a></li>
+    </ul>
+    </p>
+  </div>
+</template>
+
