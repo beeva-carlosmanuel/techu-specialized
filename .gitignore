@@ -1,3 +1,5 @@
 .idea/
 /nbproject/private/
 nbproject/
+bower_components/
+node_modules/
